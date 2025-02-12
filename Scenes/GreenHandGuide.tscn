@@ -1,0 +1,354 @@
+[gd_scene load_steps=24 format=3 uid="uid://c8mfwla8dlrni"]
+
+[ext_resource type="PackedScene" uid="uid://bd132egnxviqo" path="res://Scenes/player.tscn" id="2_ral2n"]
+[ext_resource type="Script" uid="uid://bicjnl6o5m2bn" path="res://Script/greenhand.gd" id="4_327mg"]
+[ext_resource type="PackedScene" uid="uid://dk2p4f8tmhv3" path="res://Scenes/wall.tscn" id="5_13flr"]
+[ext_resource type="PackedScene" uid="uid://53gb540yutqy" path="res://Scenes/airblock.tscn" id="6_dlj3e"]
+[ext_resource type="Texture2D" uid="uid://12e3q4dl72mq" path="res://Assets/Texture/star.png" id="9_fu3eq"]
+[ext_resource type="Script" uid="uid://d4ihlqpr85c2c" path="res://Script/teach.gd" id="10_ral2n"]
+[ext_resource type="Texture2D" uid="uid://wxnlo7uwq86d" path="res://Assets/Texture/KeyboardPrompt/right.png" id="11_8n163"]
+[ext_resource type="Texture2D" uid="uid://detguqrxvj1lx" path="res://Assets/Texture/KeyboardPrompt/left.png" id="12_y6t8v"]
+[ext_resource type="Texture2D" uid="uid://drx6lvq5dfivs" path="res://Assets/Texture/NextStop.png" id="13_13flr"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q3urk"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xmi55"]
+distance = -647.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ha7yr"]
+size = Vector2(1293, 12)
+
+[sub_resource type="Animation" id="Animation_y6t8v"]
+resource_name = "DisplayText1"
+length = 0.21
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pressright:visible_characters")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.21),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 7]
+}
+
+[sub_resource type="Animation" id="Animation_13flr"]
+resource_name = "DisplayText2"
+length = 0.21
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pressleft:visible_characters")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.21),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 7]
+}
+
+[sub_resource type="Animation" id="Animation_8n163"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Overlay:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pressright:visible_characters")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pressleft:visible_characters")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ral2n"]
+resource_name = "Transfortoblack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Overlay:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.378929, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.372549)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y6t8v"]
+_data = {
+&"DisplayText1": SubResource("Animation_y6t8v"),
+&"DisplayText2": SubResource("Animation_13flr"),
+&"RESET": SubResource("Animation_8n163"),
+&"Transfortoblack": SubResource("Animation_ral2n")
+}
+
+[sub_resource type="Animation" id="Animation_2dlt4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../Overlay:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dlj3e"]
+resource_name = "apppear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../Overlay:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.378929, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.635294)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_88ar5"]
+_data = {
+&"RESET": SubResource("Animation_2dlt4"),
+&"apppear": SubResource("Animation_dlj3e")
+}
+
+[sub_resource type="Animation" id="Animation_88ar5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_e5jcd"]
+resource_name = "apper"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.392292, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fu3eq"]
+_data = {
+&"RESET": SubResource("Animation_88ar5"),
+&"apper": SubResource("Animation_e5jcd")
+}
+
+[node name="Node2D" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [609.0, 732.0]
+metadata/_edit_vertical_guides_ = [1580.0]
+
+[node name="ball" parent="." groups=["ball"] instance=ExtResource("2_ral2n")]
+position = Vector2(86, 99)
+scale = Vector2(1.25, 1.25)
+mass = 0.206
+physics_material_override = SubResource("PhysicsMaterial_q3urk")
+
+[node name="rotation" type="Node2D" parent="." groups=["maze"]]
+position = Vector2(350, 350)
+script = ExtResource("4_327mg")
+wall = ExtResource("5_13flr")
+AirBlock = ExtResource("6_dlj3e")
+
+[node name="Maze_wall_group" type="Node2D" parent="rotation"]
+position = Vector2(-242, -186)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(287, 146)
+scale = Vector2(5, 1)
+shape = SubResource("WorldBoundaryShape2D_xmi55")
+
+[node name="judgeissuccess" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="judgeissuccess"]
+position = Vector2(357.5, 795)
+shape = SubResource("RectangleShape2D_ha7yr")
+
+[node name="star" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(346, 246)
+texture = ExtResource("9_fu3eq")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(350, 400)
+
+[node name="Overlay" type="ColorRect" parent="."]
+offset_left = -83.0
+offset_top = -85.0
+offset_right = 793.0
+offset_bottom = 893.0
+color = Color(0, 0, 0, 0)
+script = ExtResource("10_ral2n")
+
+[node name="Acontroler" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_y6t8v")
+}
+
+[node name="right" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(433, 733)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_8n163")
+
+[node name="Pressright" type="Label" parent="."]
+visible = false
+offset_left = 192.0
+offset_top = 711.0
+offset_right = 384.0
+offset_bottom = 756.0
+theme_override_font_sizes/font_size = 32
+text = "迷宫往右旋转"
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="left" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(217, 733)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_y6t8v")
+
+[node name="Pressleft" type="Label" parent="."]
+visible = false
+offset_left = 286.0
+offset_top = 711.0
+offset_right = 478.0
+offset_bottom = 756.0
+theme_override_font_sizes/font_size = 32
+text = "迷宫往左旋转"
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Reminder" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 142.0
+offset_top = 117.0
+offset_right = 567.0
+offset_bottom = 163.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "控制迷宫,让「光球」落地"
+
+[node name="DisplayContinueInfo" type="AnimationPlayer" parent="."]
+root_node = NodePath("../NextBtn/Congratulation")
+libraries = {
+&"": SubResource("AnimationLibrary_88ar5")
+}
+
+[node name="NextBtn" type="TextureButton" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = 281.0
+offset_top = 328.0
+offset_right = 422.0
+offset_bottom = 469.0
+disabled = true
+texture_normal = ExtResource("13_13flr")
+texture_pressed = ExtResource("13_13flr")
+texture_hover = ExtResource("13_13flr")
+texture_focused = ExtResource("13_13flr")
+stretch_mode = 0
+
+[node name="Congratulation" type="Label" parent="NextBtn"]
+layout_mode = 0
+offset_left = -72.0
+offset_top = -79.0
+offset_right = 216.0
+offset_bottom = 15.0
+theme_override_font_sizes/font_size = 32
+text = "你已经会解决迷宫了
+        开始冒险吧."
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_fu3eq")
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -24.0
+offset_top = -41.0
+offset_right = 743.0
+offset_bottom = 865.0
+color = Color(0, 0, 0, 1)
+
+[connection signal="body_entered" from="judgeissuccess" to="rotation" method="_on_judgeissuccess_body_entered"]
+[connection signal="pressed" from="NextBtn" to="rotation" method="_on_next_btn_pressed"]

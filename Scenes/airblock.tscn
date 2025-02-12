@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://53gb540yutqy"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uauqm"]
+
+[node name="airblock" type="StaticBody2D"]
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(36.9999, -16.0001)
+scale = Vector2(2, 1)
+shape = SubResource("WorldBoundaryShape2D_uauqm")

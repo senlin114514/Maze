@@ -1,0 +1,17 @@
+[gd_scene load_steps=7 format=3 uid="uid://bqtg8opy1alsc"]
+
+[ext_resource type="Script" uid="uid://cca4uqh4bkhox" path="res://Script/maze.gd" id="1_31kh1"]
+[ext_resource type="PackedScene" uid="uid://cmij36ha6l7uj" path="res://Scenes/Blocks/green.tscn" id="2_720sd"]
+[ext_resource type="PackedScene" uid="uid://bnopnchlsip0j" path="res://Scenes/Blocks/blue.tscn" id="3_5f7w8"]
+[ext_resource type="PackedScene" uid="uid://l0p6f3h36li5" path="res://Scenes/Blocks/gold.tscn" id="4_3sfa0"]
+[ext_resource type="PackedScene" uid="uid://y0r3o8y7e4v5" path="res://Scenes/Blocks/red.tscn" id="5_g1u3l"]
+[ext_resource type="PackedScene" uid="uid://bsxxeuudiq3tc" path="res://Scenes/Blocks/purple.tscn" id="6_mcbjl"]
+
+[node name="rotation" type="Node2D" groups=["maze"]]
+position = Vector2(350, 350)
+script = ExtResource("1_31kh1")
+greenwall = ExtResource("2_720sd")
+bluewall = ExtResource("3_5f7w8")
+goldwall = ExtResource("4_3sfa0")
+redwall = ExtResource("5_g1u3l")
+purplewall = ExtResource("6_mcbjl")

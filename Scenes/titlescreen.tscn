@@ -1,0 +1,445 @@
+[gd_scene load_steps=23 format=3 uid="uid://cctxqmcf8ugoo"]
+
+[ext_resource type="Theme" uid="uid://dprfork6yliew" path="res://theme/ui_normal_theme.tres" id="1_3lblr"]
+[ext_resource type="FontFile" uid="uid://4a8ydhauu7ho" path="res://font/SourceHanSansSC-Regular-2.otf" id="2_h87bp"]
+[ext_resource type="Script" uid="uid://w8ie115ivuwj" path="res://Scenes/titlescreen.gd" id="2_wshof"]
+[ext_resource type="FontFile" uid="uid://b2g0w6bynq55i" path="res://font/art_deco_font.ttf" id="3_qf0g6"]
+[ext_resource type="StyleBox" uid="uid://biayrl7jevc26" path="res://theme/startgamebtn.tres" id="3_wshof"]
+[ext_resource type="PackedScene" uid="uid://bqtg8opy1alsc" path="res://Scenes/maze.tscn" id="6_up5sg"]
+[ext_resource type="Texture2D" uid="uid://d0cyh0fmptcq3" path="res://Assets/Texture/exitLeft.png" id="7_w7bgp"]
+[ext_resource type="Texture2D" uid="uid://dumjsk5kcflmw" path="res://Assets/Texture/element_grey_rectangle.png" id="8_sf6xc"]
+[ext_resource type="Texture2D" uid="uid://daup2tx4ksnv6" path="res://Assets/Texture/element_red_rectangle_glossy.png" id="9_qr3m1"]
+[ext_resource type="Texture2D" uid="uid://bo4cj7im7kchv" path="res://Assets/Texture/element_grey_square_glossy.png" id="10_lkqyf"]
+[ext_resource type="Texture2D" uid="uid://dd0gew2it8mxn" path="res://Assets/Texture/gear.png" id="10_qr3m1"]
+[ext_resource type="Texture2D" uid="uid://b5efr2qu067ff" path="res://Assets/Texture/Blocks/red.png" id="11_wf248"]
+
+[sub_resource type="Theme" id="Theme_u4xby"]
+Button/font_sizes/font_size = 24
+Button/fonts/font = ExtResource("2_h87bp")
+Button/styles/disabled = ExtResource("3_wshof")
+Button/styles/focus = ExtResource("3_wshof")
+Button/styles/hover = ExtResource("3_wshof")
+Button/styles/normal = ExtResource("3_wshof")
+Button/styles/pressed = ExtResource("3_wshof")
+
+[sub_resource type="Animation" id="Animation_wshof"]
+resource_name = "BTN_appear"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/NewGame:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.406126, 1),
+"update": 0,
+"values": [Vector2(0, 883), Vector2(0, 743)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("rotation:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(0.406126, 1),
+"update": 0,
+"values": [Vector2(350, 800), Vector2(350, 400)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("rotation:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qf0g6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/NewGame:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 883)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("rotation:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(350, 1500)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("rotation:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_up5sg"]
+_data = {
+&"BTN_appear": SubResource("Animation_wshof"),
+&"RESET": SubResource("Animation_qf0g6")
+}
+
+[sub_resource type="Animation" id="Animation_w7bgp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/NewGame:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_up5sg"]
+resource_name = "blink"
+length = 8.0
+loop_mode = 1
+step = 0.0333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/NewGame:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1, 2.7, 3.4333, 4.7, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j0nra"]
+_data = {
+&"RESET": SubResource("Animation_w7bgp"),
+&"blink": SubResource("Animation_up5sg")
+}
+
+[sub_resource type="Animation" id="Animation_sf6xc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("黑块:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_j0nra"]
+resource_name = "Transfortoblack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("黑块:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qr3m1"]
+_data = {
+&"RESET": SubResource("Animation_sf6xc"),
+&"Transfortoblack": SubResource("Animation_j0nra")
+}
+
+[node name="HelloScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_3lblr")
+script = ExtResource("2_wshof")
+metadata/_edit_vertical_guides_ = [350.0, 14.0]
+metadata/_edit_horizontal_guides_ = [786.0, 750.0]
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 40.0
+offset_bottom = 174.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_qf0g6")
+theme_override_font_sizes/font_size = 128
+text = "Maze"
+horizontal_alignment = 1
+
+[node name="NewGame" type="Button" parent="Panel"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 83.0
+offset_bottom = 138.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_u4xby")
+theme_override_font_sizes/font_size = 24
+text = "Press here to start"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_up5sg")
+}
+autoplay = "BTN_appear"
+
+[node name="透明闪烁效果" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_j0nra")
+}
+autoplay = "blink"
+
+[node name="渐渐变黑" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qr3m1")
+}
+
+[node name="rotation" parent="." instance=ExtResource("6_up5sg")]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(350, 1500)
+scale = Vector2(0.8, 0.8)
+
+[node name="ExitBtn" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 736.0
+offset_right = 62.0
+offset_bottom = 793.0
+texture_normal = ExtResource("7_w7bgp")
+texture_pressed = ExtResource("7_w7bgp")
+texture_hover = ExtResource("7_w7bgp")
+texture_disabled = ExtResource("7_w7bgp")
+texture_focused = ExtResource("7_w7bgp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="DialogWindow" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 84.0
+offset_top = 177.0
+offset_right = 616.0
+offset_bottom = 697.0
+color = Color(0, 0, 0, 0.690196)
+
+[node name="3" type="Label" parent="DialogWindow"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 138.0
+offset_right = 312.0
+offset_bottom = 186.0
+theme_override_font_sizes/font_size = 24
+text = "清空所有玩家数据"
+
+[node name="1" type="Label" parent="DialogWindow"]
+layout_mode = 1
+offset_left = 22.0
+offset_top = 7.0
+offset_right = 100.0
+offset_bottom = 55.0
+theme_override_font_sizes/font_size = 32
+text = "设置"
+
+[node name="DebugMode" type="Label" parent="DialogWindow"]
+layout_mode = 0
+offset_left = 119.0
+offset_top = 93.0
+offset_right = 266.0
+offset_bottom = 135.0
+theme_override_font_sizes/font_size = 28
+text = "Debug 模式"
+
+[node name="DebugModeBtn" type="CheckButton" parent="DialogWindow"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 89.0
+offset_right = 341.0
+offset_bottom = 118.0
+scale = Vector2(2, 2)
+disabled = true
+
+[node name="OK" type="TextureButton" parent="DialogWindow"]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 469.0
+offset_right = 514.0
+offset_bottom = 509.0
+disabled = true
+texture_normal = ExtResource("8_sf6xc")
+texture_pressed = ExtResource("9_qr3m1")
+texture_hover = ExtResource("9_qr3m1")
+
+[node name="2" type="Label" parent="DialogWindow"]
+layout_mode = 0
+offset_left = 442.0
+offset_top = 435.0
+offset_right = 522.0
+offset_bottom = 459.0
+text = "保存并退出"
+
+[node name="OK2" type="TextureButton" parent="DialogWindow"]
+layout_mode = 0
+offset_left = 322.0
+offset_top = 144.0
+offset_right = 354.0
+offset_bottom = 176.0
+disabled = true
+texture_normal = ExtResource("10_lkqyf")
+texture_pressed = ExtResource("11_wf248")
+texture_hover = ExtResource("11_wf248")
+
+[node name="OpenSetthings" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 647.0
+offset_top = 743.0
+offset_right = 692.0
+offset_bottom = 788.0
+texture_normal = ExtResource("10_qr3m1")
+texture_pressed = ExtResource("10_qr3m1")
+texture_hover = ExtResource("10_qr3m1")
+texture_disabled = ExtResource("10_qr3m1")
+texture_focused = ExtResource("10_qr3m1")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="DialogWindow2" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 98.0
+offset_top = 174.0
+offset_right = 630.0
+offset_bottom = 535.0
+color = Color(0, 0, 0, 0.690196)
+
+[node name="1" type="Label" parent="DialogWindow2"]
+layout_mode = 1
+offset_left = 31.0
+offset_top = 28.0
+offset_right = 334.0
+offset_bottom = 74.0
+theme_override_font_sizes/font_size = 32
+text = "你确定要清空玩家数据?"
+
+[node name="2" type="Label" parent="DialogWindow2"]
+layout_mode = 0
+offset_left = 302.0
+offset_top = 81.0
+offset_right = 528.0
+offset_bottom = 114.0
+theme_override_font_sizes/font_size = 20
+text = "你将丢失所有进度.
+该操作无法撤销."
+
+[node name="3" type="Label" parent="DialogWindow2"]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 208.0
+offset_right = 343.0
+offset_bottom = 241.0
+theme_override_font_sizes/font_size = 20
+text = "确定"
+
+[node name="4" type="Label" parent="DialogWindow2"]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 208.0
+offset_right = 565.0
+offset_bottom = 241.0
+theme_override_font_sizes/font_size = 20
+text = "取消"
+
+[node name="OK3" type="TextureButton" parent="DialogWindow2"]
+layout_mode = 0
+offset_left = 127.0
+offset_top = 247.0
+offset_right = 191.0
+offset_bottom = 287.0
+disabled = true
+texture_normal = ExtResource("8_sf6xc")
+texture_pressed = ExtResource("9_qr3m1")
+texture_hover = ExtResource("9_qr3m1")
+
+[node name="Cancel3" type="TextureButton" parent="DialogWindow2"]
+layout_mode = 0
+offset_left = 349.0
+offset_top = 247.0
+offset_right = 413.0
+offset_bottom = 287.0
+disabled = true
+texture_normal = ExtResource("8_sf6xc")
+texture_pressed = ExtResource("9_qr3m1")
+texture_hover = ExtResource("9_qr3m1")
+
+[node name="黑块" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="pressed" from="Panel/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="toggled" from="DialogWindow/DebugModeBtn" to="." method="_on_debug_mode_btn_toggled"]
+[connection signal="pressed" from="DialogWindow/OK" to="." method="_on_ok_pressed"]
+[connection signal="pressed" from="DialogWindow/OK2" to="." method="_on_ok_2_pressed"]
+[connection signal="pressed" from="OpenSetthings" to="." method="_on_open_setthings_pressed"]
+[connection signal="pressed" from="DialogWindow2/OK3" to="." method="_on_ok_3_pressed"]
+[connection signal="pressed" from="DialogWindow2/Cancel3" to="." method="_on_cancel_3_pressed"]

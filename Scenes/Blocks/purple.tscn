@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsxxeuudiq3tc"]
+
+[ext_resource type="Texture2D" uid="uid://blqupta0ophu0" path="res://Assets/Texture/Blocks/purple.png" id="1_87flk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ms36"]
+size = Vector2(50, 50)
+
+[node name="wall" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2.86102e-06, -2.86102e-06)
+scale = Vector2(1.5625, 1.5625)
+texture = ExtResource("1_87flk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3ms36")

@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dprfork6yliew"]
+
+[ext_resource type="FontFile" uid="uid://4a8ydhauu7ho" path="res://font/SourceHanSansSC-Regular-2.otf" id="1_vu6wq"]
+
+[resource]
+default_font = ExtResource("1_vu6wq")
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_vu6wq")
+Button/styles/focus = null

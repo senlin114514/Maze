@@ -1,0 +1,571 @@
+[gd_scene load_steps=26 format=3 uid="uid://dusvgcwl4fma"]
+
+[ext_resource type="PackedScene" uid="uid://bd132egnxviqo" path="res://Scenes/player.tscn" id="2_b4xn0"]
+[ext_resource type="Script" uid="uid://bylkoeb7nyj5x" path="res://Script/genmaze.gd" id="4_7ys8v"]
+[ext_resource type="PackedScene" uid="uid://cmij36ha6l7uj" path="res://Scenes/Blocks/green.tscn" id="5_jn2ok"]
+[ext_resource type="PackedScene" uid="uid://bnopnchlsip0j" path="res://Scenes/Blocks/blue.tscn" id="6_jieww"]
+[ext_resource type="PackedScene" uid="uid://53gb540yutqy" path="res://Scenes/airblock.tscn" id="6_jn2ok"]
+[ext_resource type="PackedScene" uid="uid://l0p6f3h36li5" path="res://Scenes/Blocks/gold.tscn" id="7_owiv4"]
+[ext_resource type="PackedScene" uid="uid://y0r3o8y7e4v5" path="res://Scenes/Blocks/red.tscn" id="8_84a6y"]
+[ext_resource type="Texture2D" uid="uid://12e3q4dl72mq" path="res://Assets/Texture/star.png" id="9_84a6y"]
+[ext_resource type="PackedScene" uid="uid://bsxxeuudiq3tc" path="res://Scenes/Blocks/purple.tscn" id="9_fkdu8"]
+[ext_resource type="FontFile" uid="uid://b2g0w6bynq55i" path="res://font/art_deco_font.ttf" id="14_fkdu8"]
+[ext_resource type="Texture2D" uid="uid://b6seyiame4pg" path="res://Assets/Texture/Continue.png" id="15_fkdu8"]
+[ext_resource type="Texture2D" uid="uid://ly73cyj3y84d" path="res://Assets/Texture/flair_arrow_3.png" id="15_jieww"]
+[ext_resource type="Texture2D" uid="uid://dumjsk5kcflmw" path="res://Assets/Texture/element_grey_rectangle.png" id="16_84a6y"]
+[ext_resource type="Texture2D" uid="uid://daup2tx4ksnv6" path="res://Assets/Texture/element_red_rectangle_glossy.png" id="17_fkdu8"]
+[ext_resource type="Texture2D" uid="uid://d0cyh0fmptcq3" path="res://Assets/Texture/exitLeft.png" id="19_kx0mk"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q3urk"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xmi55"]
+distance = -647.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ha7yr"]
+size = Vector2(1293, 12)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_84a6y"]
+load_path = "res://.godot/imported/card_outline_place.png-26aabf99693e9b9d8b4373ae940a0489.ctex"
+
+[sub_resource type="Animation" id="Animation_kx0mk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(350, 350)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Camera2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../NextBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../NextGameReminder:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../TimeUsedDisplayer:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../Overlay:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_yfwmw"]
+resource_name = "displaynewbtn"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../NextBtn:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../NextGameReminder:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../TimeUsedDisplayer:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.8, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hr31u"]
+resource_name = "end"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Overlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.378929, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_237w7"]
+resource_name = "start"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Overlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.57, 3),
+"transitions": PackedFloat32Array(0.353553, 0.435275, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fkdu8"]
+resource_name = "win"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(4.92458, 13.9288),
+"update": 0,
+"values": [Vector2(350, 350), Vector2(350, -800)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Camera2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yfwmw"]
+_data = {
+&"RESET": SubResource("Animation_kx0mk"),
+&"displaynewbtn": SubResource("Animation_yfwmw"),
+&"end": SubResource("Animation_hr31u"),
+&"start": SubResource("Animation_237w7"),
+&"win": SubResource("Animation_fkdu8")
+}
+
+[node name="Node2D" type="Node2D"]
+metadata/_edit_vertical_guides_ = [1052.0, 693.0, 650.0]
+metadata/_edit_horizontal_guides_ = [743.0, 407.0]
+
+[node name="ball" parent="." groups=["ball"] instance=ExtResource("2_b4xn0")]
+process_mode = 1
+position = Vector2(86, 99)
+scale = Vector2(1.25, 1.25)
+mass = 0.206
+physics_material_override = SubResource("PhysicsMaterial_q3urk")
+
+[node name="rotation" type="Node2D" parent="." groups=["maze"]]
+process_mode = 3
+position = Vector2(350, 350)
+script = ExtResource("4_7ys8v")
+greenwall = ExtResource("5_jn2ok")
+bluewall = ExtResource("6_jieww")
+goldwall = ExtResource("7_owiv4")
+redwall = ExtResource("8_84a6y")
+purplewall = ExtResource("9_fkdu8")
+AirBlock = ExtResource("6_jn2ok")
+
+[node name="Maze_wall_group" type="Node2D" parent="rotation"]
+position = Vector2(-242, -186)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(287, 146)
+scale = Vector2(5, 1)
+shape = SubResource("WorldBoundaryShape2D_xmi55")
+
+[node name="judgeissuccess" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="judgeissuccess"]
+position = Vector2(357.5, 795)
+shape = SubResource("RectangleShape2D_ha7yr")
+
+[node name="star" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(346, 246)
+texture = ExtResource("9_84a6y")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(350, 400)
+
+[node name="CheckPointIDLable" type="Label" parent="."]
+offset_left = 608.0
+offset_top = 13.0
+offset_right = 698.0
+offset_bottom = 47.0
+theme_override_fonts/font = ExtResource("14_fkdu8")
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="AutoSaveReminder" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[node name="Reload" type="TextureButton" parent="."]
+offset_left = 652.0
+offset_top = 743.0
+offset_right = 780.0
+offset_bottom = 871.0
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("15_jieww")
+texture_pressed = ExtResource("15_jieww")
+texture_hover = ExtResource("15_jieww")
+texture_disabled = ExtResource("15_jieww")
+texture_focused = ExtResource("15_jieww")
+
+[node name="DialogWindow" type="ColorRect" parent="."]
+visible = false
+offset_left = 98.0
+offset_top = 174.0
+offset_right = 630.0
+offset_bottom = 535.0
+color = Color(0, 0, 0, 0.690196)
+
+[node name="1" type="Label" parent="DialogWindow"]
+layout_mode = 1
+offset_left = 31.0
+offset_top = 28.0
+offset_right = 334.0
+offset_bottom = 74.0
+theme_override_font_sizes/font_size = 32
+text = "你确定要重置迷宫吗?"
+
+[node name="2" type="Label" parent="DialogWindow"]
+layout_mode = 0
+offset_left = 319.0
+offset_top = 81.0
+offset_right = 526.0
+offset_bottom = 114.0
+theme_override_font_sizes/font_size = 20
+text = "此操作不可撤销."
+
+[node name="3" type="Label" parent="DialogWindow"]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 208.0
+offset_right = 343.0
+offset_bottom = 241.0
+theme_override_font_sizes/font_size = 20
+text = "确定"
+
+[node name="4" type="Label" parent="DialogWindow"]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 208.0
+offset_right = 565.0
+offset_bottom = 241.0
+theme_override_font_sizes/font_size = 20
+text = "取消"
+
+[node name="OK" type="TextureButton" parent="DialogWindow"]
+layout_mode = 0
+offset_left = 127.0
+offset_top = 247.0
+offset_right = 191.0
+offset_bottom = 287.0
+disabled = true
+texture_normal = ExtResource("16_84a6y")
+texture_pressed = ExtResource("17_fkdu8")
+texture_hover = ExtResource("17_fkdu8")
+
+[node name="Cancel" type="TextureButton" parent="DialogWindow"]
+layout_mode = 0
+offset_left = 349.0
+offset_top = 247.0
+offset_right = 413.0
+offset_bottom = 287.0
+disabled = true
+texture_normal = ExtResource("16_84a6y")
+texture_pressed = ExtResource("17_fkdu8")
+texture_hover = ExtResource("17_fkdu8")
+
+[node name="SaveGame" type="TextureButton" parent="."]
+offset_left = 650.0
+offset_top = 1.0
+offset_right = 692.0
+offset_bottom = 43.0
+texture_normal = SubResource("CompressedTexture2D_84a6y")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Clock" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="TimeDisplayer" type="Label" parent="."]
+offset_left = 18.0
+offset_top = 1.0
+offset_right = 155.0
+offset_bottom = 47.0
+theme_override_font_sizes/font_size = 32
+text = "当前时间:"
+
+[node name="WinAnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../rotation")
+libraries = {
+&"": SubResource("AnimationLibrary_yfwmw")
+}
+autoplay = "start"
+
+[node name="NextBtn" type="TextureButton" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+offset_left = 287.0
+offset_top = 335.0
+offset_right = 415.0
+offset_bottom = 463.0
+disabled = true
+texture_normal = ExtResource("15_fkdu8")
+texture_pressed = ExtResource("15_fkdu8")
+texture_hover = ExtResource("15_fkdu8")
+texture_focused = ExtResource("15_fkdu8")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="NextGameReminder" type="Label" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+offset_left = 193.0
+offset_top = 247.0
+offset_right = 513.0
+offset_bottom = 337.0
+theme_override_font_sizes/font_size = 64
+text = "下一个迷宫"
+
+[node name="TimeUsedDisplayer" type="Label" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+offset_left = 311.0
+offset_top = 466.0
+offset_right = 406.0
+offset_bottom = 490.0
+size_flags_horizontal = 0
+text = "用时:520.12s"
+
+[node name="ExitBtn" type="TextureButton" parent="."]
+offset_left = -6.0
+offset_top = 733.0
+offset_right = 51.0
+offset_bottom = 790.0
+texture_normal = ExtResource("19_kx0mk")
+texture_pressed = ExtResource("19_kx0mk")
+texture_hover = ExtResource("19_kx0mk")
+texture_disabled = ExtResource("19_kx0mk")
+texture_focused = ExtResource("19_kx0mk")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="DialogWindow2" type="ColorRect" parent="."]
+process_mode = 3
+visible = false
+offset_left = 98.0
+offset_top = 174.0
+offset_right = 630.0
+offset_bottom = 535.0
+color = Color(0, 0, 0, 0.690196)
+
+[node name="1" type="Label" parent="DialogWindow2"]
+layout_mode = 1
+offset_left = 31.0
+offset_top = 28.0
+offset_right = 334.0
+offset_bottom = 74.0
+theme_override_font_sizes/font_size = 32
+text = "你确定要退出吗?"
+
+[node name="2" type="Label" parent="DialogWindow2"]
+layout_mode = 0
+offset_left = 302.0
+offset_top = 81.0
+offset_right = 528.0
+offset_bottom = 114.0
+theme_override_font_sizes/font_size = 20
+text = "你将会丢失未保存的进度."
+
+[node name="3" type="Label" parent="DialogWindow2"]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 208.0
+offset_right = 343.0
+offset_bottom = 241.0
+theme_override_font_sizes/font_size = 20
+text = "确定"
+
+[node name="4" type="Label" parent="DialogWindow2"]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 208.0
+offset_right = 565.0
+offset_bottom = 241.0
+theme_override_font_sizes/font_size = 20
+text = "取消"
+
+[node name="OK2" type="TextureButton" parent="DialogWindow2"]
+layout_mode = 0
+offset_left = 127.0
+offset_top = 247.0
+offset_right = 191.0
+offset_bottom = 287.0
+disabled = true
+texture_normal = ExtResource("16_84a6y")
+texture_pressed = ExtResource("17_fkdu8")
+texture_hover = ExtResource("17_fkdu8")
+
+[node name="Cancel2" type="TextureButton" parent="DialogWindow2"]
+layout_mode = 0
+offset_left = 349.0
+offset_top = 247.0
+offset_right = 413.0
+offset_bottom = 287.0
+disabled = true
+texture_normal = ExtResource("16_84a6y")
+texture_pressed = ExtResource("17_fkdu8")
+texture_hover = ExtResource("17_fkdu8")
+
+[node name="DialogWindow3" type="ColorRect" parent="."]
+process_mode = 3
+visible = false
+offset_left = 98.0
+offset_top = 174.0
+offset_right = 630.0
+offset_bottom = 535.0
+color = Color(0, 0, 0, 0.690196)
+
+[node name="1" type="Label" parent="DialogWindow3"]
+layout_mode = 1
+offset_left = 31.0
+offset_top = 28.0
+offset_right = 334.0
+offset_bottom = 74.0
+theme_override_font_sizes/font_size = 32
+text = "游戏已暂停"
+
+[node name="3" type="Label" parent="DialogWindow3"]
+layout_mode = 0
+offset_left = 121.0
+offset_top = 208.0
+offset_right = 328.0
+offset_bottom = 241.0
+theme_override_font_sizes/font_size = 20
+text = "回到游戏"
+
+[node name="4" type="Label" parent="DialogWindow3"]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 208.0
+offset_right = 565.0
+offset_bottom = 241.0
+theme_override_font_sizes/font_size = 20
+text = "退出"
+
+[node name="OK3" type="TextureButton" parent="DialogWindow3"]
+layout_mode = 0
+offset_left = 127.0
+offset_top = 247.0
+offset_right = 191.0
+offset_bottom = 287.0
+disabled = true
+texture_normal = ExtResource("16_84a6y")
+texture_pressed = ExtResource("17_fkdu8")
+texture_hover = ExtResource("17_fkdu8")
+
+[node name="Cancel3" type="TextureButton" parent="DialogWindow3"]
+layout_mode = 0
+offset_left = 349.0
+offset_top = 247.0
+offset_right = 413.0
+offset_bottom = 287.0
+disabled = true
+texture_normal = ExtResource("16_84a6y")
+texture_pressed = ExtResource("17_fkdu8")
+texture_hover = ExtResource("17_fkdu8")
+
+[node name="Overlay" type="ColorRect" parent="."]
+offset_left = -26.0
+offset_top = -21.0
+offset_right = 727.0
+offset_bottom = 847.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="body_entered" from="judgeissuccess" to="rotation" method="_on_judgeissuccess_body_entered"]
+[connection signal="timeout" from="AutoSaveReminder" to="rotation" method="_on_timer_timeout"]
+[connection signal="pressed" from="Reload" to="rotation" method="_on_reload_pressed"]
+[connection signal="pressed" from="DialogWindow/OK" to="rotation" method="_on_ok_pressed"]
+[connection signal="pressed" from="DialogWindow/Cancel" to="rotation" method="_on_cancel_pressed"]
+[connection signal="pressed" from="SaveGame" to="rotation" method="_on_save_game_pressed"]
+[connection signal="timeout" from="Clock" to="rotation" method="_on_clock_timeout"]
+[connection signal="pressed" from="NextBtn" to="rotation" method="_on_next_btn_pressed"]
+[connection signal="pressed" from="ExitBtn" to="rotation" method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="DialogWindow2/OK2" to="rotation" method="_on_ok_2_pressed"]
+[connection signal="pressed" from="DialogWindow2/Cancel2" to="rotation" method="_on_cancel_2_pressed"]
+[connection signal="pressed" from="DialogWindow3/OK3" to="rotation" method="_on_ok_3_pressed"]
+[connection signal="pressed" from="DialogWindow3/Cancel3" to="rotation" method="_on_cancel_3_pressed"]
