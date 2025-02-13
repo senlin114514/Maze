@@ -12,8 +12,8 @@ config_version=5
 
 config/name="godot-maze"
 config/version="1.0"
-run/main_scene="uid://cctxqmcf8ugoo"
-config/features=PackedStringArray("4.4", "Forward Plus")
+run/main_scene="res://Scenes/titlescreen.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]

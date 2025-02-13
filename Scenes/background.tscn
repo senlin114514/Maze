@@ -1,7 +1,7 @@
 [gd_scene load_steps=26 format=3 uid="uid://dusvgcwl4fma"]
 
 [ext_resource type="PackedScene" uid="uid://bd132egnxviqo" path="res://Scenes/player.tscn" id="2_b4xn0"]
-[ext_resource type="Script" uid="uid://bylkoeb7nyj5x" path="res://Script/genmaze.gd" id="4_7ys8v"]
+[ext_resource type="Script" path="res://Script/genmaze.gd" id="4_7ys8v"]
 [ext_resource type="PackedScene" uid="uid://cmij36ha6l7uj" path="res://Scenes/Blocks/green.tscn" id="5_jn2ok"]
 [ext_resource type="PackedScene" uid="uid://bnopnchlsip0j" path="res://Scenes/Blocks/blue.tscn" id="6_jieww"]
 [ext_resource type="PackedScene" uid="uid://53gb540yutqy" path="res://Scenes/airblock.tscn" id="6_jn2ok"]
@@ -12,9 +12,9 @@
 [ext_resource type="FontFile" uid="uid://b2g0w6bynq55i" path="res://font/art_deco_font.ttf" id="14_fkdu8"]
 [ext_resource type="Texture2D" uid="uid://b6seyiame4pg" path="res://Assets/Texture/Continue.png" id="15_fkdu8"]
 [ext_resource type="Texture2D" uid="uid://ly73cyj3y84d" path="res://Assets/Texture/flair_arrow_3.png" id="15_jieww"]
+[ext_resource type="Texture2D" uid="uid://5bb6e4bhhk5" path="res://Assets/Texture/pause.png" id="15_vqfyq"]
 [ext_resource type="Texture2D" uid="uid://dumjsk5kcflmw" path="res://Assets/Texture/element_grey_rectangle.png" id="16_84a6y"]
 [ext_resource type="Texture2D" uid="uid://daup2tx4ksnv6" path="res://Assets/Texture/element_red_rectangle_glossy.png" id="17_fkdu8"]
-[ext_resource type="Texture2D" uid="uid://d0cyh0fmptcq3" path="res://Assets/Texture/exitLeft.png" id="19_kx0mk"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q3urk"]
 
@@ -204,11 +204,11 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yfwmw"]
 _data = {
-&"RESET": SubResource("Animation_kx0mk"),
-&"displaynewbtn": SubResource("Animation_yfwmw"),
-&"end": SubResource("Animation_hr31u"),
-&"start": SubResource("Animation_237w7"),
-&"win": SubResource("Animation_fkdu8")
+"RESET": SubResource("Animation_kx0mk"),
+"displaynewbtn": SubResource("Animation_yfwmw"),
+"end": SubResource("Animation_hr31u"),
+"start": SubResource("Animation_237w7"),
+"win": SubResource("Animation_fkdu8")
 }
 
 [node name="Node2D" type="Node2D"]
@@ -371,7 +371,7 @@ text = "当前时间:"
 [node name="WinAnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../rotation")
 libraries = {
-&"": SubResource("AnimationLibrary_yfwmw")
+"": SubResource("AnimationLibrary_yfwmw")
 }
 autoplay = "start"
 
@@ -411,15 +411,10 @@ size_flags_horizontal = 0
 text = "用时:520.12s"
 
 [node name="ExitBtn" type="TextureButton" parent="."]
-offset_left = -6.0
-offset_top = 733.0
-offset_right = 51.0
+offset_top = 741.0
+offset_right = 49.0
 offset_bottom = 790.0
-texture_normal = ExtResource("19_kx0mk")
-texture_pressed = ExtResource("19_kx0mk")
-texture_hover = ExtResource("19_kx0mk")
-texture_disabled = ExtResource("19_kx0mk")
-texture_focused = ExtResource("19_kx0mk")
+texture_normal = ExtResource("15_vqfyq")
 ignore_texture_size = true
 stretch_mode = 0
 

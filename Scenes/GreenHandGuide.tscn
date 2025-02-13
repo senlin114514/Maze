@@ -1,14 +1,14 @@
-[gd_scene load_steps=24 format=3 uid="uid://c8mfwla8dlrni"]
+[gd_scene load_steps=25 format=3 uid="uid://c8mfwla8dlrni"]
 
 [ext_resource type="PackedScene" uid="uid://bd132egnxviqo" path="res://Scenes/player.tscn" id="2_ral2n"]
-[ext_resource type="Script" uid="uid://bicjnl6o5m2bn" path="res://Script/greenhand.gd" id="4_327mg"]
+[ext_resource type="Script" path="res://Script/greenhand.gd" id="4_327mg"]
 [ext_resource type="PackedScene" uid="uid://dk2p4f8tmhv3" path="res://Scenes/wall.tscn" id="5_13flr"]
 [ext_resource type="PackedScene" uid="uid://53gb540yutqy" path="res://Scenes/airblock.tscn" id="6_dlj3e"]
 [ext_resource type="Texture2D" uid="uid://12e3q4dl72mq" path="res://Assets/Texture/star.png" id="9_fu3eq"]
-[ext_resource type="Script" uid="uid://d4ihlqpr85c2c" path="res://Script/teach.gd" id="10_ral2n"]
+[ext_resource type="Texture2D" uid="uid://b6seyiame4pg" path="res://Assets/Texture/Continue.png" id="9_rrrum"]
+[ext_resource type="Script" path="res://Script/teach.gd" id="10_ral2n"]
 [ext_resource type="Texture2D" uid="uid://wxnlo7uwq86d" path="res://Assets/Texture/KeyboardPrompt/right.png" id="11_8n163"]
 [ext_resource type="Texture2D" uid="uid://detguqrxvj1lx" path="res://Assets/Texture/KeyboardPrompt/left.png" id="12_y6t8v"]
-[ext_resource type="Texture2D" uid="uid://drx6lvq5dfivs" path="res://Assets/Texture/NextStop.png" id="13_13flr"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q3urk"]
 
@@ -106,10 +106,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y6t8v"]
 _data = {
-&"DisplayText1": SubResource("Animation_y6t8v"),
-&"DisplayText2": SubResource("Animation_13flr"),
-&"RESET": SubResource("Animation_8n163"),
-&"Transfortoblack": SubResource("Animation_ral2n")
+"DisplayText1": SubResource("Animation_y6t8v"),
+"DisplayText2": SubResource("Animation_13flr"),
+"RESET": SubResource("Animation_8n163"),
+"Transfortoblack": SubResource("Animation_ral2n")
 }
 
 [sub_resource type="Animation" id="Animation_2dlt4"]
@@ -168,9 +168,12 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_88ar5"]
 _data = {
-&"RESET": SubResource("Animation_2dlt4"),
-&"apppear": SubResource("Animation_dlj3e")
+"RESET": SubResource("Animation_2dlt4"),
+"apppear": SubResource("Animation_dlj3e")
 }
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vtfvy"]
+load_path = "res://.godot/imported/NextStop.png-bc4051866ac11faba7bc4df5f81801f9.ctex"
 
 [sub_resource type="Animation" id="Animation_88ar5"]
 length = 0.001
@@ -204,8 +207,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fu3eq"]
 _data = {
-&"RESET": SubResource("Animation_88ar5"),
-&"apper": SubResource("Animation_e5jcd")
+"RESET": SubResource("Animation_88ar5"),
+"apper": SubResource("Animation_e5jcd")
 }
 
 [node name="Node2D" type="Node2D"]
@@ -258,7 +261,7 @@ script = ExtResource("10_ral2n")
 
 [node name="Acontroler" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_y6t8v")
+"": SubResource("AnimationLibrary_y6t8v")
 }
 
 [node name="right" type="Sprite2D" parent="."]
@@ -311,7 +314,7 @@ text = "控制迷宫,让「光球」落地"
 [node name="DisplayContinueInfo" type="AnimationPlayer" parent="."]
 root_node = NodePath("../NextBtn/Congratulation")
 libraries = {
-&"": SubResource("AnimationLibrary_88ar5")
+"": SubResource("AnimationLibrary_88ar5")
 }
 
 [node name="NextBtn" type="TextureButton" parent="."]
@@ -321,10 +324,10 @@ offset_top = 328.0
 offset_right = 422.0
 offset_bottom = 469.0
 disabled = true
-texture_normal = ExtResource("13_13flr")
-texture_pressed = ExtResource("13_13flr")
-texture_hover = ExtResource("13_13flr")
-texture_focused = ExtResource("13_13flr")
+texture_normal = ExtResource("9_rrrum")
+texture_pressed = SubResource("CompressedTexture2D_vtfvy")
+texture_hover = SubResource("CompressedTexture2D_vtfvy")
+texture_focused = SubResource("CompressedTexture2D_vtfvy")
 stretch_mode = 0
 
 [node name="Congratulation" type="Label" parent="NextBtn"]
@@ -339,7 +342,7 @@ text = "你已经会解决迷宫了
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_fu3eq")
+"": SubResource("AnimationLibrary_fu3eq")
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]

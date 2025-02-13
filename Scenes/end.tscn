@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://d1vs76rqnrbim"]
 
-[ext_resource type="Script" uid="uid://tajw6c3ssxd0" path="res://Script/end.gd" id="1_02kpm"]
+[ext_resource type="Script" path="res://Script/end.gd" id="1_02kpm"]
 [ext_resource type="FontFile" uid="uid://4a8ydhauu7ho" path="res://font/SourceHanSansSC-Regular-2.otf" id="1_xmt8n"]
 [ext_resource type="Texture2D" uid="uid://b6seyiame4pg" path="res://Assets/Texture/Continue.png" id="2_02kpm"]
 
@@ -109,8 +109,8 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ql4ve"]
 _data = {
-&"RESET": SubResource("Animation_02kpm"),
-&"end": SubResource("Animation_xmt8n")
+"RESET": SubResource("Animation_02kpm"),
+"end": SubResource("Animation_xmt8n")
 }
 
 [node name="UI" type="Control"]
@@ -240,7 +240,7 @@ grow_vertical = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_ql4ve")
+"": SubResource("AnimationLibrary_ql4ve")
 }
 
 [connection signal="pressed" from="OverLayButton" to="." method="_on_over_lay_button_pressed"]

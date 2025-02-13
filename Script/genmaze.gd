@@ -399,9 +399,9 @@ func _on_ok_pressed() -> void:
 	save.position.y = 0
 	save.rotation = 0.0
 	save.time = 0
-	r.maze = "empty"
-	r.size = 0
-	save_maze(str(r))
+	#r.maze = "empty"
+	#r.size = 0
+	#save_maze(str(r))
 	save_to_file(str(save))
 	$"../WinAnimationPlayer".play("end")
 	await $"../WinAnimationPlayer".animation_finished
