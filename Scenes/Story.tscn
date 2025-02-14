@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://boy5plxpyppix"]
 
 [ext_resource type="FontFile" uid="uid://4a8ydhauu7ho" path="res://font/SourceHanSansSC-Regular-2.otf" id="1_6b7hr"]
-[ext_resource type="Script" uid="uid://debm4rkvube8" path="res://Script/story.gd" id="1_itq1a"]
+[ext_resource type="Script" path="res://Script/story.gd" id="1_itq1a"]
 [ext_resource type="Texture2D" uid="uid://b6seyiame4pg" path="res://Assets/Texture/Continue.png" id="3_vactc"]
 
 [sub_resource type="Animation" id="Animation_itq1a"]
@@ -178,11 +178,11 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vactc"]
 _data = {
-&"RESET": SubResource("Animation_itq1a"),
-&"TextControl": SubResource("Animation_6b7hr"),
-&"TextControl2": SubResource("Animation_vactc"),
-&"TextControl3": SubResource("Animation_ncg45"),
-&"TextControl4": SubResource("Animation_l07yc")
+"RESET": SubResource("Animation_itq1a"),
+"TextControl": SubResource("Animation_6b7hr"),
+"TextControl2": SubResource("Animation_vactc"),
+"TextControl3": SubResource("Animation_ncg45"),
+"TextControl4": SubResource("Animation_l07yc")
 }
 
 [node name="UI" type="Control"]
@@ -261,7 +261,7 @@ horizontal_alignment = 2
 
 [node name="TextContorler" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_vactc")
+"": SubResource("AnimationLibrary_vactc")
 }
 
 [node name="Reminder" type="Label" parent="."]

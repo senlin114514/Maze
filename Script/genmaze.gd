@@ -185,6 +185,9 @@ func get_color(level:int) -> int:
 var nextpath = "res://Scenes/background.tscn"
 	
 func _ready() -> void:
+	if current_time <= 60: $"../TimeDisplayer".text = str(current_time)
+	else: $"../TimeDisplayer".text = str(snapped(current_time,0.1))
+	ispasued = true
 	print("关卡:",level)
 	if level == 30:
 		$"../NextGameReminder".text = "  完成"
@@ -265,7 +268,10 @@ func _ready() -> void:
 		elif i == "0":
 			pass
 		l += 1;
-	pass # Replace with function body.
+		
+	print("迷宫生成完成✅")
+	await $"../WinAnimationPlayer".animation_finished
+	ispasued = false
 
 func print_maze():
 	for row in maze:
@@ -308,21 +314,22 @@ func _physics_process(delta: float) -> void:
 		return;
 	if iswin:
 		return;
-	$"../TimeDisplayer".text = str(current_time)
+	if current_time <= 60: $"../TimeDisplayer".text = str(current_time)
+	else: $"../TimeDisplayer".text = str(snapped(current_time,0.1))
 	if Input.is_action_pressed("left"):
 		if not isFirstAction:
 			print("键盘操作,启动计时器")
 			isFirstAction = true
 			$"../Clock".start()
-		self.rotation += 0.01;
-		save.rotation += 0.01;
+		self.rotation -= 0.015;
+		save.rotation -= 0.015;
 	if Input.is_action_pressed("right"):
 		if not isFirstAction:
 			print("键盘操作,启动计时器")
 			isFirstAction = true
 			$"../Clock".start()
-		self.rotation -= 0.01;
-		save.rotation -= 0.01;
+		self.rotation += 0.015;
+		save.rotation += 0.015;
 	if DebugModeStatus:
 		if Input.is_action_just_released("passed"):
 			if ispasued:
@@ -369,6 +376,9 @@ func _on_judgeissuccess_body_entered(body: Node2D) -> void:
 
 
 func _on_next_btn_pressed() -> void:
+	if isalreadypassed:
+		return
+	isalreadypassed = true
 	print("下一关!")
 	#if level == 12:
 	#	print("半场")
@@ -380,6 +390,7 @@ func _on_next_btn_pressed() -> void:
 	$"../WinAnimationPlayer".play("end")
 	await $"../WinAnimationPlayer".animation_finished
 	get_tree().change_scene_to_file(nextpath)
+	queue_free()
 	pass # Replace with function body.
 
 
@@ -442,8 +453,8 @@ func _on_timer_timeout() -> void:
 	pass # Replace with function body.
 
 func _on_clock_timeout() -> void:
-	current_time += 0.1
-	current_time = snapped(current_time,0.1)
+	current_time += 0.01
+	current_time = snapped(current_time,0.01)
 	pass # Replace with function body.
 
 

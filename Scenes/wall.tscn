@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dk2p4f8tmhv3"]
+[gd_scene load_steps=4 format=3 uid="uid://dk2p4f8tmhv3"]
 
 [ext_resource type="Texture2D" uid="uid://m7phpqqt00vs" path="res://Assets/Texture/Blocks/green.png" id="1_d155t"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_i03m6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ms36"]
 size = Vector2(50, 50)
 
 [node name="wall" type="StaticBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_i03m6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(2.86102e-06, -2.86102e-06)

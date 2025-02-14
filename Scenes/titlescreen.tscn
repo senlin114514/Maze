@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://dprfork6yliew" path="res://theme/ui_normal_theme.tres" id="1_3lblr"]
 [ext_resource type="FontFile" uid="uid://4a8ydhauu7ho" path="res://font/SourceHanSansSC-Regular-2.otf" id="2_h87bp"]
-[ext_resource type="Script" uid="uid://w8ie115ivuwj" path="res://Scenes/titlescreen.gd" id="2_wshof"]
+[ext_resource type="Script" path="res://Scenes/titlescreen.gd" id="2_wshof"]
 [ext_resource type="FontFile" uid="uid://b2g0w6bynq55i" path="res://font/art_deco_font.ttf" id="3_qf0g6"]
 [ext_resource type="StyleBox" uid="uid://biayrl7jevc26" path="res://theme/startgamebtn.tres" id="3_wshof"]
 [ext_resource type="PackedScene" uid="uid://bqtg8opy1alsc" path="res://Scenes/maze.tscn" id="6_up5sg"]
@@ -103,8 +103,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_up5sg"]
 _data = {
-&"BTN_appear": SubResource("Animation_wshof"),
-&"RESET": SubResource("Animation_qf0g6")
+"BTN_appear": SubResource("Animation_wshof"),
+"RESET": SubResource("Animation_qf0g6")
 }
 
 [sub_resource type="Animation" id="Animation_w7bgp"]
@@ -142,8 +142,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j0nra"]
 _data = {
-&"RESET": SubResource("Animation_w7bgp"),
-&"blink": SubResource("Animation_up5sg")
+"RESET": SubResource("Animation_w7bgp"),
+"blink": SubResource("Animation_up5sg")
 }
 
 [sub_resource type="Animation" id="Animation_sf6xc"]
@@ -178,8 +178,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qr3m1"]
 _data = {
-&"RESET": SubResource("Animation_sf6xc"),
-&"Transfortoblack": SubResource("Animation_j0nra")
+"RESET": SubResource("Animation_sf6xc"),
+"Transfortoblack": SubResource("Animation_j0nra")
 }
 
 [node name="HelloScreen" type="Control"]
@@ -231,19 +231,19 @@ text = "Press here to start"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_up5sg")
+"": SubResource("AnimationLibrary_up5sg")
 }
 autoplay = "BTN_appear"
 
 [node name="透明闪烁效果" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_j0nra")
+"": SubResource("AnimationLibrary_j0nra")
 }
 autoplay = "blink"
 
 [node name="渐渐变黑" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_qr3m1")
+"": SubResource("AnimationLibrary_qr3m1")
 }
 
 [node name="rotation" parent="." instance=ExtResource("6_up5sg")]

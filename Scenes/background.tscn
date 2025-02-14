@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://dusvgcwl4fma"]
+[gd_scene load_steps=27 format=3 uid="uid://dusvgcwl4fma"]
 
+[ext_resource type="Script" path="res://Script/ball.gd" id="2_2g3hl"]
 [ext_resource type="PackedScene" uid="uid://bd132egnxviqo" path="res://Scenes/player.tscn" id="2_b4xn0"]
-[ext_resource type="Script" uid="uid://bylkoeb7nyj5x" path="res://Script/genmaze.gd" id="4_7ys8v"]
+[ext_resource type="Script" path="res://Script/genmaze.gd" id="4_7ys8v"]
 [ext_resource type="PackedScene" uid="uid://cmij36ha6l7uj" path="res://Scenes/Blocks/green.tscn" id="5_jn2ok"]
 [ext_resource type="PackedScene" uid="uid://bnopnchlsip0j" path="res://Scenes/Blocks/blue.tscn" id="6_jieww"]
 [ext_resource type="PackedScene" uid="uid://53gb540yutqy" path="res://Scenes/airblock.tscn" id="6_jn2ok"]
@@ -169,7 +170,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1.57, 3),
-"transitions": PackedFloat32Array(0.353553, 0.435275, 1),
+"transitions": PackedFloat32Array(0.353553, 2.29739, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
@@ -204,11 +205,11 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_yfwmw"]
 _data = {
-&"RESET": SubResource("Animation_kx0mk"),
-&"displaynewbtn": SubResource("Animation_yfwmw"),
-&"end": SubResource("Animation_hr31u"),
-&"start": SubResource("Animation_237w7"),
-&"win": SubResource("Animation_fkdu8")
+"RESET": SubResource("Animation_kx0mk"),
+"displaynewbtn": SubResource("Animation_yfwmw"),
+"end": SubResource("Animation_hr31u"),
+"start": SubResource("Animation_237w7"),
+"win": SubResource("Animation_fkdu8")
 }
 
 [node name="Node2D" type="Node2D"]
@@ -219,8 +220,9 @@ metadata/_edit_horizontal_guides_ = [743.0, 407.0]
 process_mode = 1
 position = Vector2(86, 99)
 scale = Vector2(1.25, 1.25)
-mass = 0.206
+mass = 0.222
 physics_material_override = SubResource("PhysicsMaterial_q3urk")
+script = ExtResource("2_2g3hl")
 
 [node name="rotation" type="Node2D" parent="." groups=["maze"]]
 process_mode = 3
@@ -358,7 +360,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Clock" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.01
 
 [node name="TimeDisplayer" type="Label" parent="."]
 offset_left = 18.0
@@ -366,12 +368,12 @@ offset_top = 1.0
 offset_right = 155.0
 offset_bottom = 47.0
 theme_override_font_sizes/font_size = 32
-text = "当前时间:"
+text = "0"
 
 [node name="WinAnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../rotation")
 libraries = {
-&"": SubResource("AnimationLibrary_yfwmw")
+"": SubResource("AnimationLibrary_yfwmw")
 }
 autoplay = "start"
 
