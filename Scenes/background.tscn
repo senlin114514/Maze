@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dusvgcwl4fma"]
+[gd_scene load_steps=26 format=3 uid="uid://dusvgcwl4fma"]
 
 [ext_resource type="Script" path="res://Script/ball.gd" id="2_2g3hl"]
 [ext_resource type="PackedScene" uid="uid://bd132egnxviqo" path="res://Scenes/player.tscn" id="2_b4xn0"]
@@ -19,11 +19,8 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q3urk"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xmi55"]
-distance = -647.0
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ha7yr"]
-size = Vector2(1293, 12)
+size = Vector2(3210, 12)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_84a6y"]
 load_path = "res://.godot/imported/card_outline_place.png-26aabf99693e9b9d8b4373ae940a0489.ctex"
@@ -218,10 +215,11 @@ metadata/_edit_horizontal_guides_ = [743.0, 407.0]
 
 [node name="ball" parent="." groups=["ball"] instance=ExtResource("2_b4xn0")]
 process_mode = 1
-position = Vector2(86, 99)
+position = Vector2(244, 229)
 scale = Vector2(1.25, 1.25)
-mass = 0.222
+mass = 10.0
 physics_material_override = SubResource("PhysicsMaterial_q3urk")
+gravity_scale = 5.0
 script = ExtResource("2_2g3hl")
 
 [node name="rotation" type="Node2D" parent="." groups=["maze"]]
@@ -238,17 +236,11 @@ AirBlock = ExtResource("6_jn2ok")
 [node name="Maze_wall_group" type="Node2D" parent="rotation"]
 position = Vector2(-242, -186)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(287, 146)
-scale = Vector2(5, 1)
-shape = SubResource("WorldBoundaryShape2D_xmi55")
-
 [node name="judgeissuccess" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="judgeissuccess"]
-position = Vector2(357.5, 795)
+position = Vector2(200, 795)
+scale = Vector2(100, 1)
 shape = SubResource("RectangleShape2D_ha7yr")
 
 [node name="star" type="Sprite2D" parent="."]
@@ -258,41 +250,34 @@ texture = ExtResource("9_84a6y")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(350, 400)
-
-[node name="CheckPointIDLable" type="Label" parent="."]
-offset_left = 608.0
-offset_top = 13.0
-offset_right = 698.0
-offset_bottom = 47.0
-theme_override_fonts/font = ExtResource("14_fkdu8")
-theme_override_font_sizes/font_size = 32
-text = "0"
+zoom = Vector2(0.2, 0.2)
+limit_left = 0
+limit_top = 0
 
 [node name="AutoSaveReminder" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
 
-[node name="Reload" type="TextureButton" parent="."]
-offset_left = 652.0
-offset_top = 743.0
-offset_right = 780.0
-offset_bottom = 871.0
-scale = Vector2(0.3, 0.3)
-texture_normal = ExtResource("15_jieww")
-texture_pressed = ExtResource("15_jieww")
-texture_hover = ExtResource("15_jieww")
-texture_disabled = ExtResource("15_jieww")
-texture_focused = ExtResource("15_jieww")
+[node name="Clock" type="Timer" parent="."]
+wait_time = 0.01
 
-[node name="DialogWindow" type="ColorRect" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 18.0
+offset_top = 1.0
+offset_right = 58.0
+offset_bottom = 41.0
+
+[node name="DialogWindow" type="ColorRect" parent="Control"]
 visible = false
-offset_left = 98.0
-offset_top = 174.0
-offset_right = 630.0
-offset_bottom = 535.0
+offset_left = 80.0
+offset_top = 173.0
+offset_right = 612.0
+offset_bottom = 534.0
 color = Color(0, 0, 0, 0.690196)
 
-[node name="1" type="Label" parent="DialogWindow"]
+[node name="1" type="Label" parent="Control/DialogWindow"]
 layout_mode = 1
 offset_left = 31.0
 offset_top = 28.0
@@ -301,7 +286,7 @@ offset_bottom = 74.0
 theme_override_font_sizes/font_size = 32
 text = "你确定要重置迷宫吗?"
 
-[node name="2" type="Label" parent="DialogWindow"]
+[node name="2" type="Label" parent="Control/DialogWindow"]
 layout_mode = 0
 offset_left = 319.0
 offset_top = 81.0
@@ -310,7 +295,7 @@ offset_bottom = 114.0
 theme_override_font_sizes/font_size = 20
 text = "此操作不可撤销."
 
-[node name="3" type="Label" parent="DialogWindow"]
+[node name="3" type="Label" parent="Control/DialogWindow"]
 layout_mode = 0
 offset_left = 136.0
 offset_top = 208.0
@@ -319,7 +304,7 @@ offset_bottom = 241.0
 theme_override_font_sizes/font_size = 20
 text = "确定"
 
-[node name="4" type="Label" parent="DialogWindow"]
+[node name="4" type="Label" parent="Control/DialogWindow"]
 layout_mode = 0
 offset_left = 358.0
 offset_top = 208.0
@@ -328,7 +313,7 @@ offset_bottom = 241.0
 theme_override_font_sizes/font_size = 20
 text = "取消"
 
-[node name="OK" type="TextureButton" parent="DialogWindow"]
+[node name="OK" type="TextureButton" parent="Control/DialogWindow"]
 layout_mode = 0
 offset_left = 127.0
 offset_top = 247.0
@@ -339,7 +324,7 @@ texture_normal = ExtResource("16_84a6y")
 texture_pressed = ExtResource("17_fkdu8")
 texture_hover = ExtResource("17_fkdu8")
 
-[node name="Cancel" type="TextureButton" parent="DialogWindow"]
+[node name="Cancel" type="TextureButton" parent="Control/DialogWindow"]
 layout_mode = 0
 offset_left = 349.0
 offset_top = 247.0
@@ -350,23 +335,176 @@ texture_normal = ExtResource("16_84a6y")
 texture_pressed = ExtResource("17_fkdu8")
 texture_hover = ExtResource("17_fkdu8")
 
-[node name="SaveGame" type="TextureButton" parent="."]
-offset_left = 650.0
-offset_top = 1.0
-offset_right = 692.0
-offset_bottom = 43.0
+[node name="DialogWindow2" type="ColorRect" parent="Control"]
+process_mode = 3
+visible = false
+offset_left = 80.0
+offset_top = 173.0
+offset_right = 612.0
+offset_bottom = 534.0
+color = Color(0, 0, 0, 0.690196)
+
+[node name="1" type="Label" parent="Control/DialogWindow2"]
+layout_mode = 1
+offset_left = 31.0
+offset_top = 28.0
+offset_right = 334.0
+offset_bottom = 74.0
+theme_override_font_sizes/font_size = 32
+text = "你确定要退出吗?"
+
+[node name="2" type="Label" parent="Control/DialogWindow2"]
+layout_mode = 0
+offset_left = 302.0
+offset_top = 81.0
+offset_right = 528.0
+offset_bottom = 114.0
+theme_override_font_sizes/font_size = 20
+text = "你将会丢失未保存的进度."
+
+[node name="3" type="Label" parent="Control/DialogWindow2"]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 208.0
+offset_right = 343.0
+offset_bottom = 241.0
+theme_override_font_sizes/font_size = 20
+text = "确定"
+
+[node name="4" type="Label" parent="Control/DialogWindow2"]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 208.0
+offset_right = 565.0
+offset_bottom = 241.0
+theme_override_font_sizes/font_size = 20
+text = "取消"
+
+[node name="OK2" type="TextureButton" parent="Control/DialogWindow2"]
+layout_mode = 0
+offset_left = 127.0
+offset_top = 247.0
+offset_right = 191.0
+offset_bottom = 287.0
+disabled = true
+texture_normal = ExtResource("16_84a6y")
+texture_pressed = ExtResource("17_fkdu8")
+texture_hover = ExtResource("17_fkdu8")
+
+[node name="Cancel2" type="TextureButton" parent="Control/DialogWindow2"]
+layout_mode = 0
+offset_left = 349.0
+offset_top = 247.0
+offset_right = 413.0
+offset_bottom = 287.0
+disabled = true
+texture_normal = ExtResource("16_84a6y")
+texture_pressed = ExtResource("17_fkdu8")
+texture_hover = ExtResource("17_fkdu8")
+
+[node name="DialogWindow3" type="ColorRect" parent="Control"]
+process_mode = 3
+visible = false
+offset_left = 80.0
+offset_top = 173.0
+offset_right = 612.0
+offset_bottom = 534.0
+color = Color(0, 0, 0, 0.690196)
+
+[node name="1" type="Label" parent="Control/DialogWindow3"]
+layout_mode = 1
+offset_left = 31.0
+offset_top = 28.0
+offset_right = 334.0
+offset_bottom = 74.0
+theme_override_font_sizes/font_size = 32
+text = "游戏已暂停"
+
+[node name="3" type="Label" parent="Control/DialogWindow3"]
+layout_mode = 0
+offset_left = 121.0
+offset_top = 208.0
+offset_right = 328.0
+offset_bottom = 241.0
+theme_override_font_sizes/font_size = 20
+text = "回到游戏"
+
+[node name="4" type="Label" parent="Control/DialogWindow3"]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 208.0
+offset_right = 565.0
+offset_bottom = 241.0
+theme_override_font_sizes/font_size = 20
+text = "退出"
+
+[node name="OK3" type="TextureButton" parent="Control/DialogWindow3"]
+layout_mode = 0
+offset_left = 127.0
+offset_top = 247.0
+offset_right = 191.0
+offset_bottom = 287.0
+disabled = true
+texture_normal = ExtResource("16_84a6y")
+texture_pressed = ExtResource("17_fkdu8")
+texture_hover = ExtResource("17_fkdu8")
+
+[node name="Cancel3" type="TextureButton" parent="Control/DialogWindow3"]
+layout_mode = 0
+offset_left = 349.0
+offset_top = 247.0
+offset_right = 413.0
+offset_bottom = 287.0
+disabled = true
+texture_normal = ExtResource("16_84a6y")
+texture_pressed = ExtResource("17_fkdu8")
+texture_hover = ExtResource("17_fkdu8")
+
+[node name="CheckPointIDLable" type="Label" parent="Control"]
+offset_left = 590.0
+offset_top = 12.0
+offset_right = 680.0
+offset_bottom = 46.0
+theme_override_fonts/font = ExtResource("14_fkdu8")
+theme_override_font_sizes/font_size = 32
+text = "0"
+
+[node name="Reload" type="TextureButton" parent="Control"]
+offset_left = 634.0
+offset_top = 742.0
+offset_right = 762.0
+offset_bottom = 870.0
+scale = Vector2(0.3, 0.3)
+texture_normal = ExtResource("15_jieww")
+texture_pressed = ExtResource("15_jieww")
+texture_hover = ExtResource("15_jieww")
+texture_disabled = ExtResource("15_jieww")
+texture_focused = ExtResource("15_jieww")
+
+[node name="SaveGame" type="TextureButton" parent="Control"]
+offset_left = 632.0
+offset_right = 674.0
+offset_bottom = 42.0
 texture_normal = SubResource("CompressedTexture2D_84a6y")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Clock" type="Timer" parent="."]
-wait_time = 0.01
+[node name="ExitBtn" type="TextureButton" parent="Control"]
+offset_left = -4.0
+offset_top = 732.0
+offset_right = 53.0
+offset_bottom = 789.0
+texture_normal = ExtResource("19_kx0mk")
+texture_pressed = ExtResource("19_kx0mk")
+texture_hover = ExtResource("19_kx0mk")
+texture_disabled = ExtResource("19_kx0mk")
+texture_focused = ExtResource("19_kx0mk")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="TimeDisplayer" type="Label" parent="."]
-offset_left = 18.0
-offset_top = 1.0
-offset_right = 155.0
-offset_bottom = 47.0
+[node name="TimeDisplayer" type="Label" parent="Control"]
+offset_right = 137.0
+offset_bottom = 46.0
 theme_override_font_sizes/font_size = 32
 text = "0"
 
@@ -412,144 +550,6 @@ offset_bottom = 490.0
 size_flags_horizontal = 0
 text = "用时:520.12s"
 
-[node name="ExitBtn" type="TextureButton" parent="."]
-offset_left = -6.0
-offset_top = 733.0
-offset_right = 51.0
-offset_bottom = 790.0
-texture_normal = ExtResource("19_kx0mk")
-texture_pressed = ExtResource("19_kx0mk")
-texture_hover = ExtResource("19_kx0mk")
-texture_disabled = ExtResource("19_kx0mk")
-texture_focused = ExtResource("19_kx0mk")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="DialogWindow2" type="ColorRect" parent="."]
-process_mode = 3
-visible = false
-offset_left = 98.0
-offset_top = 174.0
-offset_right = 630.0
-offset_bottom = 535.0
-color = Color(0, 0, 0, 0.690196)
-
-[node name="1" type="Label" parent="DialogWindow2"]
-layout_mode = 1
-offset_left = 31.0
-offset_top = 28.0
-offset_right = 334.0
-offset_bottom = 74.0
-theme_override_font_sizes/font_size = 32
-text = "你确定要退出吗?"
-
-[node name="2" type="Label" parent="DialogWindow2"]
-layout_mode = 0
-offset_left = 302.0
-offset_top = 81.0
-offset_right = 528.0
-offset_bottom = 114.0
-theme_override_font_sizes/font_size = 20
-text = "你将会丢失未保存的进度."
-
-[node name="3" type="Label" parent="DialogWindow2"]
-layout_mode = 0
-offset_left = 136.0
-offset_top = 208.0
-offset_right = 343.0
-offset_bottom = 241.0
-theme_override_font_sizes/font_size = 20
-text = "确定"
-
-[node name="4" type="Label" parent="DialogWindow2"]
-layout_mode = 0
-offset_left = 358.0
-offset_top = 208.0
-offset_right = 565.0
-offset_bottom = 241.0
-theme_override_font_sizes/font_size = 20
-text = "取消"
-
-[node name="OK2" type="TextureButton" parent="DialogWindow2"]
-layout_mode = 0
-offset_left = 127.0
-offset_top = 247.0
-offset_right = 191.0
-offset_bottom = 287.0
-disabled = true
-texture_normal = ExtResource("16_84a6y")
-texture_pressed = ExtResource("17_fkdu8")
-texture_hover = ExtResource("17_fkdu8")
-
-[node name="Cancel2" type="TextureButton" parent="DialogWindow2"]
-layout_mode = 0
-offset_left = 349.0
-offset_top = 247.0
-offset_right = 413.0
-offset_bottom = 287.0
-disabled = true
-texture_normal = ExtResource("16_84a6y")
-texture_pressed = ExtResource("17_fkdu8")
-texture_hover = ExtResource("17_fkdu8")
-
-[node name="DialogWindow3" type="ColorRect" parent="."]
-process_mode = 3
-visible = false
-offset_left = 98.0
-offset_top = 174.0
-offset_right = 630.0
-offset_bottom = 535.0
-color = Color(0, 0, 0, 0.690196)
-
-[node name="1" type="Label" parent="DialogWindow3"]
-layout_mode = 1
-offset_left = 31.0
-offset_top = 28.0
-offset_right = 334.0
-offset_bottom = 74.0
-theme_override_font_sizes/font_size = 32
-text = "游戏已暂停"
-
-[node name="3" type="Label" parent="DialogWindow3"]
-layout_mode = 0
-offset_left = 121.0
-offset_top = 208.0
-offset_right = 328.0
-offset_bottom = 241.0
-theme_override_font_sizes/font_size = 20
-text = "回到游戏"
-
-[node name="4" type="Label" parent="DialogWindow3"]
-layout_mode = 0
-offset_left = 358.0
-offset_top = 208.0
-offset_right = 565.0
-offset_bottom = 241.0
-theme_override_font_sizes/font_size = 20
-text = "退出"
-
-[node name="OK3" type="TextureButton" parent="DialogWindow3"]
-layout_mode = 0
-offset_left = 127.0
-offset_top = 247.0
-offset_right = 191.0
-offset_bottom = 287.0
-disabled = true
-texture_normal = ExtResource("16_84a6y")
-texture_pressed = ExtResource("17_fkdu8")
-texture_hover = ExtResource("17_fkdu8")
-
-[node name="Cancel3" type="TextureButton" parent="DialogWindow3"]
-layout_mode = 0
-offset_left = 349.0
-offset_top = 247.0
-offset_right = 413.0
-offset_bottom = 287.0
-disabled = true
-texture_normal = ExtResource("16_84a6y")
-texture_pressed = ExtResource("17_fkdu8")
-texture_hover = ExtResource("17_fkdu8")
-
 [node name="Overlay" type="ColorRect" parent="."]
 offset_left = -26.0
 offset_top = -21.0
@@ -560,14 +560,14 @@ color = Color(0, 0, 0, 1)
 
 [connection signal="body_entered" from="judgeissuccess" to="rotation" method="_on_judgeissuccess_body_entered"]
 [connection signal="timeout" from="AutoSaveReminder" to="rotation" method="_on_timer_timeout"]
-[connection signal="pressed" from="Reload" to="rotation" method="_on_reload_pressed"]
-[connection signal="pressed" from="DialogWindow/OK" to="rotation" method="_on_ok_pressed"]
-[connection signal="pressed" from="DialogWindow/Cancel" to="rotation" method="_on_cancel_pressed"]
-[connection signal="pressed" from="SaveGame" to="rotation" method="_on_save_game_pressed"]
 [connection signal="timeout" from="Clock" to="rotation" method="_on_clock_timeout"]
+[connection signal="pressed" from="Control/DialogWindow/OK" to="rotation" method="_on_ok_pressed"]
+[connection signal="pressed" from="Control/DialogWindow/Cancel" to="rotation" method="_on_cancel_pressed"]
+[connection signal="pressed" from="Control/DialogWindow2/OK2" to="rotation" method="_on_ok_2_pressed"]
+[connection signal="pressed" from="Control/DialogWindow2/Cancel2" to="rotation" method="_on_cancel_2_pressed"]
+[connection signal="pressed" from="Control/DialogWindow3/OK3" to="rotation" method="_on_ok_3_pressed"]
+[connection signal="pressed" from="Control/DialogWindow3/Cancel3" to="rotation" method="_on_cancel_3_pressed"]
+[connection signal="pressed" from="Control/Reload" to="rotation" method="_on_reload_pressed"]
+[connection signal="pressed" from="Control/SaveGame" to="rotation" method="_on_save_game_pressed"]
+[connection signal="pressed" from="Control/ExitBtn" to="rotation" method="_on_exit_btn_pressed"]
 [connection signal="pressed" from="NextBtn" to="rotation" method="_on_next_btn_pressed"]
-[connection signal="pressed" from="ExitBtn" to="rotation" method="_on_exit_btn_pressed"]
-[connection signal="pressed" from="DialogWindow2/OK2" to="rotation" method="_on_ok_2_pressed"]
-[connection signal="pressed" from="DialogWindow2/Cancel2" to="rotation" method="_on_cancel_2_pressed"]
-[connection signal="pressed" from="DialogWindow3/OK3" to="rotation" method="_on_ok_3_pressed"]
-[connection signal="pressed" from="DialogWindow3/Cancel3" to="rotation" method="_on_cancel_3_pressed"]

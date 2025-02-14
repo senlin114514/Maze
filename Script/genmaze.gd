@@ -33,7 +33,7 @@ func save_maze(content):
 @export var starty = -250;
 var n = 3
 
-@onready var cplabel = $"../CheckPointIDLable"
+@onready var cplabel = $"../Control/CheckPointIDLable"
 
 var iswin = false
 
@@ -185,9 +185,10 @@ func get_color(level:int) -> int:
 var nextpath = "res://Scenes/background.tscn"
 	
 func _ready() -> void:
-	if current_time <= 60: $"../TimeDisplayer".text = str(current_time)
-	else: $"../TimeDisplayer".text = str(snapped(current_time,0.1))
-	ispasued = true
+	$"../ball".gravity_scale = 0
+	#print($"../ball".position)
+	if current_time <= 60: $"../Control/TimeDisplayer".text = str(current_time)
+	else: $"../Control/TimeDisplayer".text = str(snapped(current_time,0.1))
 	print("关卡:",level)
 	if level == 30:
 		$"../NextGameReminder".text = "  完成"
@@ -198,7 +199,24 @@ func _ready() -> void:
 	cplabel.text = temp_string
 	r = load_player_data("user://Saves/maze.json")
 	randomize()
+	#旋转中心
+	print("迷宫大小(像素)",float(125.0 * 2 * n + 1));
+	var targetx = 0
+	var targety = 0
+	var M = Vector2(float(targetx) + (250 * 1.0 * n + 125 * 1.0)/2.0,targety+(250 * 1.0 * n + 125) / 2.0)
+	print("旋转中心:",M);
+	self.position = M
+	startx = targetx - M.x
+	starty = targety - M.y
+	var screen_sacle : float = float(700.0) / (2 * float(targetx) + 250 * n + 125) - 0.04
+	print("缩放:",screen_sacle)
+	print("缩放后的屏幕大小:",800.0 / screen_sacle,",",700.0 / screen_sacle)
+	$"../Camera2D".zoom = Vector2(screen_sacle,screen_sacle)
+	var bottomy = 700.0 / screen_sacle
+	print("底部y坐标:",bottomy)
+	$"../judgeissuccess".position.y = bottomy
 	#{"size" : "0","maze" : "empty"}
+	print("相对于旋转中心,将从",startx,",",starty,"绘制")
 	if (r.maze == "empty"):
 		print("未发现迷宫存档")
 		get_maze()
@@ -213,22 +231,15 @@ func _ready() -> void:
 			get_maze()
 		
 	var pos = Vector2(startx,starty)
-	var size = 500 / (2 * n + 1.0);
+	var size = 125;
 	var sc = size / 50.0
 	var h = 1
 	var l = 1#行列
-	get_node("../ball").position = Vector2(100 + 1.5 * size,150 + size)
-	var dif = 0.25
-	if n == 3:
-		dif = 0.4
-	elif n > 7:
-		dif = 0.15
-	
-	if n <= 5:
-		$"../ball".gravity_scale = 2
-	
-	get_node("../ball/ball").scale = Vector2(sc - dif,sc - dif);
-	get_node("../ball/shape").scale = Vector2(sc - dif,sc - dif);
+	var dif = 0.8
+	get_node("../ball/ball").scale = Vector2(float(125.0 / 50 - dif),float(125.0 / 50 - dif))
+	get_node("../ball/shape").scale = Vector2(float(125.0 / 50 - dif),float(125.0 / 50 - dif))
+	get_node("../ball").position = Vector2(targetx / screen_sacle + 125,targety / screen_sacle)
+	$"../ball".mass = 10 + (float(1 / screen_sacle) * 8)
 	
 	if not int(save.position.x) == 0 or not int(save.position.y) == 0:
 		print("读取存档中的小球位置:",save.position.x,",",save.position.y)
@@ -237,13 +248,9 @@ func _ready() -> void:
 		print("读取存档中的迷宫旋转")
 		self.rotation += save.rotation
 	
-	var ab = AirBlock.instantiate()
-	ab.position = pos
-	self.add_child(ab)
-	
 	var color = get_color(level)
 	print("墙的颜色:",color)
-	
+	$"../ball".position = Vector2(startx + size * 2,starty + size * 2)
 	for i in maze:
 		if i == "1":
 			pos = Vector2(startx + size * l,starty + size * h)
@@ -270,8 +277,13 @@ func _ready() -> void:
 		l += 1;
 		
 	print("迷宫生成完成✅")
+	print("重新布局UI")
+	$"../Control".scale = Vector2(1.0 / screen_sacle,1.0 / screen_sacle) 
+	var deltax = 700.0 / screen_sacle - float(125.0 * 2 * n + 1);
+	print("距离边界:",deltax)
+	self.position.x += float(deltax) / 2.0
+	self.position.y += 50 / screen_sacle
 	await $"../WinAnimationPlayer".animation_finished
-	ispasued = false
 
 func print_maze():
 	for row in maze:
@@ -289,17 +301,17 @@ func pausedgame():
 	if ispasued == false: #暂停游戏
 		get_tree().paused = true
 		ispasued = true
-		$"../DialogWindow3".visible = true
-		$"../DialogWindow3/OK3".disabled = false
-		$"../DialogWindow3/Cancel3".disabled = false
+		$"../Control/DialogWindow3".visible = true
+		$"../Control/DialogWindow3/OK3".disabled = false
+		$"../Control/DialogWindow3/Cancel3".disabled = false
 		$"../Clock".paused = true
 		print("暂停游戏")
 	else:
 		get_tree().paused = false
 		ispasued = false
-		$"../DialogWindow3".visible = false
-		$"../DialogWindow3/OK3".disabled = true
-		$"../DialogWindow3/Cancel3".disabled = true
+		$"../Control/DialogWindow3".visible = false
+		$"../Control/DialogWindow3/OK3".disabled = true
+		$"../Control/DialogWindow3/Cancel3".disabled = true
 		$"../Clock".paused = false
 		
 		print("继续游戏")
@@ -314,8 +326,8 @@ func _physics_process(delta: float) -> void:
 		return;
 	if iswin:
 		return;
-	if current_time <= 60: $"../TimeDisplayer".text = str(current_time)
-	else: $"../TimeDisplayer".text = str(snapped(current_time,0.1))
+	if current_time <= 60: $"../Control/TimeDisplayer".text = str(current_time)
+	else: $"../Control/TimeDisplayer".text = str(snapped(current_time,0.1))
 	if Input.is_action_pressed("left"):
 		if not isFirstAction:
 			print("键盘操作,启动计时器")
@@ -335,7 +347,6 @@ func _physics_process(delta: float) -> void:
 			if ispasued:
 				print("nonono")
 				return
-			$"../ball".gravity_scale = 0
 			_on_judgeissuccess_body_entered($"../ball")
 			ispasued = true
 	pass
@@ -343,14 +354,14 @@ func _physics_process(delta: float) -> void:
 func _on_judgeissuccess_body_entered(body: Node2D) -> void:
 	if body.is_in_group("ball"):
 		#get_node("../star").visible = true;
-		$"../Reload".disabled = true
+		$"../Control/Reload".disabled = true
 		$"../Clock".paused = true
 		await get_tree().create_timer(1.5).timeout 
 		iswin = true;
-		$"../Reload".visible = false
+		$"../Control/Reload".visible = false
 		$"../NextBtn".disabled = false
 		$"../NextBtn".visible = true
-		$"../SaveGame".disabled = true
+		$"../Control/SaveGame".disabled = true
 		$"../Clock".paused = false
 		$"../NextGameReminder".visible = true
 		save.level += 1
@@ -367,7 +378,7 @@ func _on_judgeissuccess_body_entered(body: Node2D) -> void:
 		$"../WinAnimationPlayer".play("win")
 		await  $"../WinAnimationPlayer".animation_finished
 		$"../WinAnimationPlayer".play("displaynewbtn")
-		var temp_string = "用时:" + str($"../TimeDisplayer".text) + "s"
+		var temp_string = "用时:" + str($"../Control/TimeDisplayer".text) + "s"
 		$"../TimeUsedDisplayer".text = temp_string
 		$"../TimeUsedDisplayer".visible = true
 		print("YOU WIN")
@@ -397,9 +408,9 @@ func _on_next_btn_pressed() -> void:
 func _on_reload_pressed() -> void:
 	print("弹出对话框")
 	ispasued = true
-	$"../DialogWindow".visible = true
-	$"../DialogWindow/OK".disabled = false
-	$"../DialogWindow/Cancel".disabled = false
+	$"../Control/DialogWindow".visible = true
+	$"../Control/DialogWindow/OK".disabled = false
+	$"../Control/DialogWindow/Cancel".disabled = false
 	$"../Clock".paused = true
 	pass # Replace with function body.
 
@@ -424,9 +435,9 @@ func _on_cancel_pressed() -> void:
 	ispasued = false
 	$"../Clock".paused = false
 	$"../Clock".start()
-	$"../DialogWindow".visible = false
-	$"../DialogWindow/OK".disabled = true
-	$"../DialogWindow/Cancel".disabled = true
+	$"../Control/DialogWindow".visible = false
+	$"../Control/DialogWindow/OK".disabled = true
+	$"../Control/DialogWindow/Cancel".disabled = true
 	pass # Replace with function body.
 
 func save_current_game() -> void:
@@ -434,7 +445,7 @@ func save_current_game() -> void:
 	print("迷宫旋转:",save.rotation)
 	save.position.x = $"../ball".position.x
 	save.position.y = $"../ball".position.y
-	save.time = float($"../TimeDisplayer".text)
+	save.time = float($"../Control/TimeDisplayer".text)
 	print("小球位置",save.position.x,",",save.position.y)
 	print("当前时间:",save.time)
 	save_to_file(str(save))
@@ -472,9 +483,9 @@ func _on_ok_2_pressed() -> void:
 
 func _on_cancel_2_pressed() -> void:
 	pausedgame()
-	$"../DialogWindow2".visible = false
-	$"../DialogWindow2/OK2".disabled = true
-	$"../DialogWindow2/Cancel2".disabled = true
+	$"../Control/DialogWindow2".visible = false
+	$"../Control/DialogWindow2/OK2".disabled = true
+	$"../Control/DialogWindow2/Cancel2".disabled = true
 	pass # Replace with function body.
 
 
@@ -485,10 +496,10 @@ func _on_ok_3_pressed() -> void:
 
 func _on_cancel_3_pressed() -> void:
 	print("弹出对话框")
-	$"../DialogWindow3".visible = false
-	$"../DialogWindow3/OK3".disabled = true
-	$"../DialogWindow3/Cancel3".disabled = true
-	$"../DialogWindow2".visible = true
-	$"../DialogWindow2/OK2".disabled = false
-	$"../DialogWindow2/Cancel2".disabled = false
+	$"../Control/DialogWindow3".visible = false
+	$"../Control/DialogWindow3/OK3".disabled = true
+	$"../Control/DialogWindow3/Cancel3".disabled = true
+	$"../Control/DialogWindow2".visible = true
+	$"../Control/DialogWindow2/OK2".disabled = false
+	$"../Control/DialogWindow2/Cancel2".disabled = false
 	pass # Replace with function body.
