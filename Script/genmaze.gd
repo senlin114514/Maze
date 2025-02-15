@@ -31,6 +31,13 @@ func save_maze(content):
 @export var AirBlock : PackedScene
 @export var startx = -250;
 @export var starty = -250;
+
+@export var greenwall_noneBTN : PackedScene
+@export var bluewall_noneBTN : PackedScene
+@export var goldwall_noneBTN : PackedScene
+@export var redwall_noneBTN : PackedScene
+@export var purplewall_noneBTN : PackedScene
+
 var n = 3
 
 @onready var cplabel = $"../CheckPointIDLable"
@@ -183,7 +190,9 @@ func get_color(level:int) -> int:
 	else: return 5
 	
 var nextpath = "res://Scenes/background.tscn"
-	
+
+var UserPowerChangeCnt : int = 0;
+
 func _ready() -> void:
 	if current_time <= 60: $"../TimeDisplayer".text = str(current_time)
 	else: $"../TimeDisplayer".text = str(snapped(current_time,0.1))
@@ -220,12 +229,15 @@ func _ready() -> void:
 	get_node("../ball").position = Vector2(100 + 1.5 * size,150 + size)
 	var dif = 0.25
 	if n == 3:
-		dif = 0.4
+		dif = 0.5
 	elif n > 7:
 		dif = 0.15
 	
 	if n <= 5:
 		$"../ball".gravity_scale = 2
+	
+	if n >= 12:
+		$"../ball".gravity_scale = 0.5
 	
 	get_node("../ball/ball").scale = Vector2(sc - dif,sc - dif);
 	get_node("../ball/shape").scale = Vector2(sc - dif,sc - dif);
@@ -248,17 +260,29 @@ func _ready() -> void:
 		if i == "1":
 			pos = Vector2(startx + size * l,starty + size * h)
 			var wall
-			if color == 1:
-				wall = greenwall.instantiate()
-			elif color == 2:
-				wall = bluewall.instantiate()
-			elif color == 3:
-				wall = goldwall.instantiate()
-			elif color == 4:
-				wall = redwall.instantiate()
-			elif color == 5:
-				wall = purplewall.instantiate()
-			wall.add_to_group("maze")
+			if h == 1 or l == 1 or h == 2 * n + 1 or l == 2 * n + 1:
+				if color == 1:
+					wall = greenwall_noneBTN.instantiate()
+				elif color == 2:
+					wall = bluewall_noneBTN.instantiate()
+				elif color == 3:
+					wall = goldwall_noneBTN.instantiate()
+				elif color == 4:
+					wall = redwall_noneBTN.instantiate()
+				elif color == 5:
+					wall = purplewall_noneBTN.instantiate()
+			else:
+				if color == 1:
+					wall = greenwall.instantiate()
+				elif color == 2:
+					wall = bluewall.instantiate()
+				elif color == 3:
+					wall = goldwall.instantiate()
+				elif color == 4:
+					wall = redwall.instantiate()
+				elif color == 5:
+					wall = purplewall.instantiate()
+			wall.add_to_group("wall")
 			wall.scale = Vector2(sc,sc);
 			wall.position = pos
 			self.add_child(wall)
@@ -270,6 +294,8 @@ func _ready() -> void:
 		l += 1;
 		
 	print("迷宫生成完成✅")
+	get_tree().call_group("wall","disable_btn")
+	var walls = get_tree().get_nodes_in_group("wall")
 	await $"../WinAnimationPlayer".animation_finished
 	ispasued = false
 
@@ -306,6 +332,14 @@ func pausedgame():
 
 var isalreadypassed : bool = false
 
+var sensitivity = 0.015
+
+var isremindercanusepower : bool = false
+
+func displayreminder() -> void:
+	$"../ChangeUseRemind".visible = true
+	await get_tree().create_timer(3).timeout
+	$"../ChangeUseRemind".visible = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_released("paused"):
@@ -319,17 +353,21 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("left"):
 		if not isFirstAction:
 			print("键盘操作,启动计时器")
+			$"../AddChange".start()
+			$"../RemindTime".visible = true
 			isFirstAction = true
 			$"../Clock".start()
-		self.rotation -= 0.015;
-		save.rotation -= 0.015;
+		self.rotate(-sensitivity);
+		save.rotation -= sensitivity;
 	if Input.is_action_pressed("right"):
 		if not isFirstAction:
 			print("键盘操作,启动计时器")
+			$"../AddChange".start()
+			$"../RemindTime".visible = true
 			isFirstAction = true
 			$"../Clock".start()
-		self.rotation += 0.015;
-		save.rotation += 0.015;
+		self.rotate(sensitivity);
+		save.rotation += sensitivity;
 	if DebugModeStatus:
 		if Input.is_action_just_released("passed"):
 			if ispasued:
@@ -338,10 +376,23 @@ func _physics_process(delta: float) -> void:
 			$"../ball".gravity_scale = 0
 			_on_judgeissuccess_body_entered($"../ball")
 			ispasued = true
+	$"../RemindTime".text = str(snapped($"../AddChange".time_left,0))
+	if UserPowerChangeCnt == 0:
+		$"../RemindTime".visible = true
+		$"../UsePower".visible = false
+		$"../UsePower".disabled = true
+	if UserPowerChangeCnt >= 1:
+		if not isremindercanusepower:
+			isremindercanusepower = true
+			displayreminder()
+		$"../RemindTime".visible = false
+		$"../UsePower".visible = true
+		$"../UsePower".disabled = false
 	pass
 
 func _on_judgeissuccess_body_entered(body: Node2D) -> void:
 	if body.is_in_group("ball"):
+		if iswin: return;
 		#get_node("../star").visible = true;
 		$"../Reload".disabled = true
 		$"../Clock".paused = true
@@ -350,14 +401,16 @@ func _on_judgeissuccess_body_entered(body: Node2D) -> void:
 		$"../Reload".visible = false
 		$"../NextBtn".disabled = false
 		$"../NextBtn".visible = true
-		$"../SaveGame".disabled = true
+		$"../UsePower".disabled = true
 		$"../Clock".paused = false
 		$"../NextGameReminder".visible = true
+		$"../RemindTime".visible = false
 		save.level += 1
 		save.rotation = 0
 		save.position.x = 0
 		save.position.y = 0
 		save.time = 0
+		save.left_time = $"../AddChange".time_left
 		print("当前存档:",save)
 		save_to_file(str(save))
 		#清空地图
@@ -371,6 +424,7 @@ func _on_judgeissuccess_body_entered(body: Node2D) -> void:
 		$"../TimeUsedDisplayer".text = temp_string
 		$"../TimeUsedDisplayer".visible = true
 		print("YOU WIN")
+		get_tree().call_group("wall","clear")
 	pass # Replace w
 #place with function body.
 
@@ -410,9 +464,6 @@ func _on_ok_pressed() -> void:
 	save.position.y = 0
 	save.rotation = 0.0
 	save.time = 0
-	r.maze = "empty"
-	r.size = 0
-	save_maze(str(r))
 	save_to_file(str(save))
 	$"../WinAnimationPlayer".play("end")
 	await $"../WinAnimationPlayer".animation_finished
@@ -438,11 +489,6 @@ func save_current_game() -> void:
 	print("小球位置",save.position.x,",",save.position.y)
 	print("当前时间:",save.time)
 	save_to_file(str(save))
-
-func _on_save_game_pressed() -> void:
-	print("用户按下了保存游戏按钮")
-	save_current_game()
-	pass # Replace with function body.
 
 
 func _on_timer_timeout() -> void:
@@ -492,3 +538,29 @@ func _on_cancel_3_pressed() -> void:
 	$"../DialogWindow2/OK2".disabled = false
 	$"../DialogWindow2/Cancel2".disabled = false
 	pass # Replace with function body.
+
+var isdisplayed : bool = false
+
+func _on_use_power_pressed() -> void:
+	if not isdisplayed:
+		isdisplayed = true
+		print("显示按钮")
+		get_tree().call_group("wall","enable_btn")
+	else:
+		isdisplayed = false
+		print("隐藏按钮")
+		get_tree().call_group("wall","disable_btn")
+	pass # Replace with function body.
+
+
+func _on_add_change_timeout() -> void:
+	print("+1")
+	UserPowerChangeCnt += 1
+	pass # Replace with function body.
+
+func alreadychecked() -> void:
+	UserPowerChangeCnt -= 1
+	self.rotate(0.001)
+	self.rotate(-0.001)
+	isdisplayed = false
+	get_tree().call_group("wall","disable_btn")

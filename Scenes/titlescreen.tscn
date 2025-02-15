@@ -435,6 +435,15 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 169.0
+offset_right = 539.0
+offset_bottom = 196.0
+theme_override_font_sizes/font_size = 18
+text = "Version 1.1"
+
 [connection signal="pressed" from="Panel/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="ExitBtn" to="." method="_on_exit_btn_pressed"]
 [connection signal="toggled" from="DialogWindow/DebugModeBtn" to="." method="_on_debug_mode_btn_toggled"]

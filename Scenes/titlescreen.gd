@@ -6,7 +6,7 @@ func changealpha():
 	while (true):
 		for i : float in range(1):
 			pass
-			
+
 func load_player_data(file_path):
 	if FileAccess.file_exists(file_path):
 		var data_file = (FileAccess.open(file_path,FileAccess.READ)).get_as_text()

@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://y0r3o8y7e4v5"]
+[gd_scene load_steps=4 format=3 uid="uid://y0r3o8y7e4v5"]
 
+[ext_resource type="Script" path="res://Script/blue.gd" id="1_tlfn4"]
 [ext_resource type="Texture2D" uid="uid://b5efr2qu067ff" path="res://Assets/Texture/Blocks/red.png" id="1_xs2jw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3ms36"]
 size = Vector2(50, 50)
 
-[node name="wall" type="StaticBody2D"]
+[node name="wall" type="StaticBody2D" groups=["wall"]]
+script = ExtResource("1_tlfn4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(2.86102e-06, -2.86102e-06)
@@ -14,3 +16,12 @@ texture = ExtResource("1_xs2jw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_3ms36")
+
+[node name="Button" type="Button" parent="."]
+visible = false
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
