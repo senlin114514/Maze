@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dusvgcwl4fma"]
+[gd_scene load_steps=32 format=3 uid="uid://dusvgcwl4fma"]
 
 [ext_resource type="Script" path="res://Script/ball.gd" id="2_2g3hl"]
 [ext_resource type="PackedScene" uid="uid://bd132egnxviqo" path="res://Scenes/player.tscn" id="2_b4xn0"]
@@ -10,12 +10,18 @@
 [ext_resource type="PackedScene" uid="uid://y0r3o8y7e4v5" path="res://Scenes/Blocks/red.tscn" id="8_84a6y"]
 [ext_resource type="Texture2D" uid="uid://12e3q4dl72mq" path="res://Assets/Texture/star.png" id="9_84a6y"]
 [ext_resource type="PackedScene" uid="uid://bsxxeuudiq3tc" path="res://Scenes/Blocks/purple.tscn" id="9_fkdu8"]
+[ext_resource type="PackedScene" uid="uid://3soyntwhqhw2" path="res://Scenes/Blocks_None_Button/green.tscn" id="10_r2yxq"]
+[ext_resource type="PackedScene" uid="uid://bdxbdbrvk02ew" path="res://Scenes/Blocks_None_Button/blue.tscn" id="11_s13ww"]
+[ext_resource type="PackedScene" uid="uid://beivlji77dum4" path="res://Scenes/Blocks_None_Button/gold.tscn" id="12_880we"]
+[ext_resource type="PackedScene" uid="uid://dl2xodb4trqmv" path="res://Scenes/Blocks_None_Button/red.tscn" id="13_08k0t"]
 [ext_resource type="FontFile" uid="uid://b2g0w6bynq55i" path="res://font/art_deco_font.ttf" id="14_fkdu8"]
+[ext_resource type="PackedScene" uid="uid://wb16ij1cmc5p" path="res://Scenes/Blocks_None_Button/purple.tscn" id="14_v16uk"]
 [ext_resource type="Texture2D" uid="uid://b6seyiame4pg" path="res://Assets/Texture/Continue.png" id="15_fkdu8"]
 [ext_resource type="Texture2D" uid="uid://ly73cyj3y84d" path="res://Assets/Texture/flair_arrow_3.png" id="15_jieww"]
 [ext_resource type="Texture2D" uid="uid://dumjsk5kcflmw" path="res://Assets/Texture/element_grey_rectangle.png" id="16_84a6y"]
 [ext_resource type="Texture2D" uid="uid://daup2tx4ksnv6" path="res://Assets/Texture/element_red_rectangle_glossy.png" id="17_fkdu8"]
 [ext_resource type="Texture2D" uid="uid://d0cyh0fmptcq3" path="res://Assets/Texture/exitLeft.png" id="19_kx0mk"]
+[ext_resource type="Texture2D" uid="uid://dpl7absyyy8q8" path="res://Assets/Texture/wrench.png" id="20_21agl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_q3urk"]
 
@@ -24,9 +30,6 @@ distance = -647.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ha7yr"]
 size = Vector2(1293, 12)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_84a6y"]
-load_path = "res://.godot/imported/card_outline_place.png-26aabf99693e9b9d8b4373ae940a0489.ctex"
 
 [sub_resource type="Animation" id="Animation_kx0mk"]
 length = 0.001
@@ -224,7 +227,7 @@ mass = 0.222
 physics_material_override = SubResource("PhysicsMaterial_q3urk")
 script = ExtResource("2_2g3hl")
 
-[node name="rotation" type="Node2D" parent="." groups=["maze"]]
+[node name="rotation" type="Node2D" parent="." groups=["maze", "maze_global"]]
 process_mode = 3
 position = Vector2(350, 350)
 script = ExtResource("4_7ys8v")
@@ -234,6 +237,11 @@ goldwall = ExtResource("7_owiv4")
 redwall = ExtResource("8_84a6y")
 purplewall = ExtResource("9_fkdu8")
 AirBlock = ExtResource("6_jn2ok")
+greenwall_noneBTN = ExtResource("10_r2yxq")
+bluewall_noneBTN = ExtResource("11_s13ww")
+goldwall_noneBTN = ExtResource("12_880we")
+redwall_noneBTN = ExtResource("13_08k0t")
+purplewall_noneBTN = ExtResource("14_v16uk")
 
 [node name="Maze_wall_group" type="Node2D" parent="rotation"]
 position = Vector2(-242, -186)
@@ -260,9 +268,9 @@ texture = ExtResource("9_84a6y")
 position = Vector2(350, 400)
 
 [node name="CheckPointIDLable" type="Label" parent="."]
-offset_left = 608.0
+offset_left = 659.0
 offset_top = 13.0
-offset_right = 698.0
+offset_right = 749.0
 offset_bottom = 47.0
 theme_override_fonts/font = ExtResource("14_fkdu8")
 theme_override_font_sizes/font_size = 32
@@ -350,12 +358,13 @@ texture_normal = ExtResource("16_84a6y")
 texture_pressed = ExtResource("17_fkdu8")
 texture_hover = ExtResource("17_fkdu8")
 
-[node name="SaveGame" type="TextureButton" parent="."]
-offset_left = 650.0
-offset_top = 1.0
-offset_right = 692.0
-offset_bottom = 43.0
-texture_normal = SubResource("CompressedTexture2D_84a6y")
+[node name="UsePower" type="TextureButton" parent="."]
+visible = false
+offset_left = 604.0
+offset_top = 2.0
+offset_right = 646.0
+offset_bottom = 44.0
+texture_normal = ExtResource("20_21agl")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -550,6 +559,37 @@ texture_normal = ExtResource("16_84a6y")
 texture_pressed = ExtResource("17_fkdu8")
 texture_hover = ExtResource("17_fkdu8")
 
+[node name="AddChange" type="Timer" parent="."]
+wait_time = 300.0
+
+[node name="RemindTime" type="Label" parent="."]
+visible = false
+offset_left = 568.0
+offset_top = 12.0
+offset_right = 608.0
+offset_bottom = 46.0
+theme_override_font_sizes/font_size = 24
+text = "
+"
+
+[node name="ChangeUseRemind" type="ColorRect" parent="."]
+visible = false
+offset_left = 508.0
+offset_top = 45.0
+offset_right = 640.0
+offset_bottom = 90.0
+color = Color(0, 0, 0, 0.552941)
+
+[node name="Label" type="Label" parent="ChangeUseRemind"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 4.0
+offset_right = 178.0
+offset_bottom = 53.0
+theme_override_font_sizes/font_size = 12
+text = "您获得了一次「神之权」
+   您可以打破一块迷宫"
+
 [node name="Overlay" type="ColorRect" parent="."]
 offset_left = -26.0
 offset_top = -21.0
@@ -563,7 +603,7 @@ color = Color(0, 0, 0, 1)
 [connection signal="pressed" from="Reload" to="rotation" method="_on_reload_pressed"]
 [connection signal="pressed" from="DialogWindow/OK" to="rotation" method="_on_ok_pressed"]
 [connection signal="pressed" from="DialogWindow/Cancel" to="rotation" method="_on_cancel_pressed"]
-[connection signal="pressed" from="SaveGame" to="rotation" method="_on_save_game_pressed"]
+[connection signal="pressed" from="UsePower" to="rotation" method="_on_use_power_pressed"]
 [connection signal="timeout" from="Clock" to="rotation" method="_on_clock_timeout"]
 [connection signal="pressed" from="NextBtn" to="rotation" method="_on_next_btn_pressed"]
 [connection signal="pressed" from="ExitBtn" to="rotation" method="_on_exit_btn_pressed"]
@@ -571,3 +611,4 @@ color = Color(0, 0, 0, 1)
 [connection signal="pressed" from="DialogWindow2/Cancel2" to="rotation" method="_on_cancel_2_pressed"]
 [connection signal="pressed" from="DialogWindow3/OK3" to="rotation" method="_on_ok_3_pressed"]
 [connection signal="pressed" from="DialogWindow3/Cancel3" to="rotation" method="_on_cancel_3_pressed"]
+[connection signal="timeout" from="AddChange" to="rotation" method="_on_add_change_timeout"]

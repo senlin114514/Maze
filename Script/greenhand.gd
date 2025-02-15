@@ -165,7 +165,7 @@ func _ready() -> void:
 	var l = 1#行列
 	#$ball.position = Vector2(150,150)
 	get_node("../ball").position = Vector2(100 + 1.5 * size,150 + size)
-	#get_node("../ball").scale = Vector2(1 / sc,1 / sc)
+	get_node("../ball").scale = Vector2(1 / sc,1 / sc)
 	#$ball.position = Vector2(150,150);
 	
 	var dif = 0.25

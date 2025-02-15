@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="godot-maze"
+config/name="Maze"
 config/version="1.0"
 run/main_scene="res://Scenes/titlescreen.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
@@ -21,6 +21,11 @@ config/icon="res://icon.svg"
 window/size/viewport_width=700
 window/size/viewport_height=800
 window/size/resizable=false
+
+[global_group]
+
+wall=""
+maze_global=""
 
 [input]
 
@@ -47,6 +52,7 @@ paused={
 
 [physics]
 
+2d/physics_engine="GodotPhysics2D"
 2d/default_gravity=800.0
 
 [rendering]
