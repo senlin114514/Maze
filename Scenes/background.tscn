@@ -368,9 +368,6 @@ texture_normal = ExtResource("20_21agl")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Clock" type="Timer" parent="."]
-wait_time = 0.01
-
 [node name="TimeDisplayer" type="Label" parent="."]
 offset_left = 18.0
 offset_top = 1.0
@@ -604,7 +601,6 @@ color = Color(0, 0, 0, 1)
 [connection signal="pressed" from="DialogWindow/OK" to="rotation" method="_on_ok_pressed"]
 [connection signal="pressed" from="DialogWindow/Cancel" to="rotation" method="_on_cancel_pressed"]
 [connection signal="pressed" from="UsePower" to="rotation" method="_on_use_power_pressed"]
-[connection signal="timeout" from="Clock" to="rotation" method="_on_clock_timeout"]
 [connection signal="pressed" from="NextBtn" to="rotation" method="_on_next_btn_pressed"]
 [connection signal="pressed" from="ExitBtn" to="rotation" method="_on_exit_btn_pressed"]
 [connection signal="pressed" from="DialogWindow2/OK2" to="rotation" method="_on_ok_2_pressed"]

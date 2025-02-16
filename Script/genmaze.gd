@@ -318,7 +318,7 @@ func pausedgame():
 		$"../DialogWindow3".visible = true
 		$"../DialogWindow3/OK3".disabled = false
 		$"../DialogWindow3/Cancel3".disabled = false
-		$"../Clock".paused = true
+		isclockstart = false
 		print("暂停游戏")
 	else:
 		get_tree().paused = false
@@ -326,8 +326,7 @@ func pausedgame():
 		$"../DialogWindow3".visible = false
 		$"../DialogWindow3/OK3".disabled = true
 		$"../DialogWindow3/Cancel3".disabled = true
-		$"../Clock".paused = false
-		
+		if not iswin: isclockstart = true
 		print("继续游戏")
 
 var isalreadypassed : bool = false
@@ -341,6 +340,19 @@ func displayreminder() -> void:
 	await get_tree().create_timer(3).timeout
 	$"../ChangeUseRemind".visible = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+
+var isclockstart : bool = false
+
+func _process(delta: float) -> void:
+	if not isclockstart:
+		return
+	delta = 0.01
+	current_time += 0.01
+	current_time = snapped(current_time,0.01)
+	if current_time <= 60: $"../TimeDisplayer".text = str(current_time)
+	else: $"../TimeDisplayer".text = str(snapped(current_time,0.1))
+	pass
+
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_released("paused"):
 		pausedgame()
@@ -348,15 +360,13 @@ func _physics_process(delta: float) -> void:
 		return;
 	if iswin:
 		return;
-	if current_time <= 60: $"../TimeDisplayer".text = str(current_time)
-	else: $"../TimeDisplayer".text = str(snapped(current_time,0.1))
 	if Input.is_action_pressed("left"):
 		if not isFirstAction:
 			print("键盘操作,启动计时器")
 			$"../AddChange".start()
 			$"../RemindTime".visible = true
 			isFirstAction = true
-			$"../Clock".start()
+			isclockstart = true
 		self.rotate(-sensitivity);
 		save.rotation -= sensitivity;
 	if Input.is_action_pressed("right"):
@@ -365,7 +375,7 @@ func _physics_process(delta: float) -> void:
 			$"../AddChange".start()
 			$"../RemindTime".visible = true
 			isFirstAction = true
-			$"../Clock".start()
+			isclockstart = true
 		self.rotate(sensitivity);
 		save.rotation += sensitivity;
 	if DebugModeStatus:
@@ -377,6 +387,8 @@ func _physics_process(delta: float) -> void:
 			_on_judgeissuccess_body_entered($"../ball")
 			ispasued = true
 	$"../RemindTime".text = str(snapped($"../AddChange".time_left,0))
+	if $"../RemindTime".text == str(0):
+		$"../RemindTime".text = ""
 	if UserPowerChangeCnt == 0:
 		$"../RemindTime".visible = true
 		$"../UsePower".visible = false
@@ -395,14 +407,13 @@ func _on_judgeissuccess_body_entered(body: Node2D) -> void:
 		if iswin: return;
 		#get_node("../star").visible = true;
 		$"../Reload".disabled = true
-		$"../Clock".paused = true
+		isclockstart = false
 		await get_tree().create_timer(1.5).timeout 
 		iswin = true;
 		$"../Reload".visible = false
 		$"../NextBtn".disabled = false
 		$"../NextBtn".visible = true
 		$"../UsePower".disabled = true
-		$"../Clock".paused = false
 		$"../NextGameReminder".visible = true
 		$"../RemindTime".visible = false
 		save.level += 1
@@ -454,7 +465,7 @@ func _on_reload_pressed() -> void:
 	$"../DialogWindow".visible = true
 	$"../DialogWindow/OK".disabled = false
 	$"../DialogWindow/Cancel".disabled = false
-	$"../Clock".paused = true
+	isclockstart = false
 	pass # Replace with function body.
 
 func _on_ok_pressed() -> void:
@@ -473,8 +484,7 @@ func _on_ok_pressed() -> void:
 
 func _on_cancel_pressed() -> void:
 	ispasued = false
-	$"../Clock".paused = false
-	$"../Clock".start()
+	isclockstart = true
 	$"../DialogWindow".visible = false
 	$"../DialogWindow/OK".disabled = true
 	$"../DialogWindow/Cancel".disabled = true
@@ -499,8 +509,6 @@ func _on_timer_timeout() -> void:
 	pass # Replace with function body.
 
 func _on_clock_timeout() -> void:
-	current_time += 0.01
-	current_time = snapped(current_time,0.01)
 	pass # Replace with function body.
 
 
