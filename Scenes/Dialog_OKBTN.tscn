@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://c4pxe8stgrsf3"]
+
+[ext_resource type="Script" path="res://Script/DialogControl.gd" id="1_7pn7g"]
+[ext_resource type="Texture2D" uid="uid://dumjsk5kcflmw" path="res://Assets/Texture/element_grey_rectangle.png" id="2_olu2p"]
+[ext_resource type="Texture2D" uid="uid://daup2tx4ksnv6" path="res://Assets/Texture/element_red_rectangle_glossy.png" id="3_mum3a"]
+
+[node name="Dialog" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_7pn7g")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 130.0
+offset_right = 637.0
+offset_bottom = 496.0
+color = Color(0, 0, 0, 0.643137)
+
+[node name="Title" type="Label" parent="Background"]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 65.0
+offset_right = 265.0
+offset_bottom = 110.0
+theme_override_font_sizes/font_size = 32
+text = "Null"
+
+[node name="Subtitle" type="Label" parent="Background"]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 111.0
+offset_right = 296.0
+offset_bottom = 134.0
+theme_override_font_sizes/font_size = 16
+text = "Null"
+
+[node name="OK" type="TextureButton" parent="Background"]
+layout_mode = 0
+offset_left = 471.0
+offset_top = 307.0
+offset_right = 535.0
+offset_bottom = 347.0
+texture_normal = ExtResource("2_olu2p")
+texture_pressed = ExtResource("3_mum3a")
+texture_hover = ExtResource("3_mum3a")
+
+[connection signal="pressed" from="Background/OK" to="." method="_on_ok_pressed"]

@@ -16,6 +16,10 @@ run/main_scene="res://Scenes/titlescreen.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Dialog="*res://Script/dialogwindow.gd"
+
 [display]
 
 window/size/viewport_width=700

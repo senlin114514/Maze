@@ -93,6 +93,8 @@ func file_exists(file_path: String) -> bool:
 	return FileAccess.file_exists(file_path)
 
 func _ready() -> void:
+	Dialog.test()
+	#Dialog.dialog_OK("Test","test")
 	if (!file_exists("user://Saves/config.json")):
 		DebugModeStatus = false
 	else:
