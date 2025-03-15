@@ -263,7 +263,7 @@ libraries = {
 
 [node name="right" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(433, 733)
+position = Vector2(482, 733)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("11_8n163")
 
@@ -274,7 +274,7 @@ offset_top = 711.0
 offset_right = 384.0
 offset_bottom = 756.0
 theme_override_font_sizes/font_size = 32
-text = "迷宫往旋转"
+text = "迷宫顺时针旋转"
 visible_characters = 0
 visible_ratio = 0.0
 
@@ -286,16 +286,17 @@ texture = ExtResource("12_y6t8v")
 
 [node name="Pressleft" type="Label" parent="."]
 visible = false
-offset_left = 286.0
+offset_left = 313.0
 offset_top = 711.0
-offset_right = 478.0
+offset_right = 505.0
 offset_bottom = 756.0
 theme_override_font_sizes/font_size = 32
-text = "迷宫往右旋转"
+text = "迷宫逆时针旋转"
 visible_characters = 0
 visible_ratio = 0.0
 
 [node name="Reminder" type="Label" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5

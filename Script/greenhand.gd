@@ -215,9 +215,9 @@ func _physics_process(delta: float) -> void:
 	if not $"../Overlay".isok:
 		return
 	if Input.is_action_pressed("left"):
-		self.rotation += 0.01;
+		self.rotation -= 0.015;
 	if Input.is_action_pressed("right"):
-		self.rotation -= 0.01;
+		self.rotation += 0.015;
 	pass
 
 func _on_judgeissuccess_body_entered(body: Node2D) -> void:

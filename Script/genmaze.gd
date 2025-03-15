@@ -470,12 +470,14 @@ func _on_reload_pressed() -> void:
 
 func _on_ok_pressed() -> void:
 	print("重置迷宫")
-	maze = ""
+	save.maze = ""
+	r.maze = "empty"
 	save.position.x = 0
 	save.position.y = 0
 	save.rotation = 0.0
 	save.time = 0
 	save_to_file(str(save))
+	save_maze(str(r))
 	$"../WinAnimationPlayer".play("end")
 	await $"../WinAnimationPlayer".animation_finished
 	get_tree().change_scene_to_file("res://Scenes/background.tscn")
